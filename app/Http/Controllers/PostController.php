@@ -82,7 +82,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $profile = VictimProfile::find($id);
+        return view('posts.show')->with('profile', $profile);
+        
     }
 
     /**

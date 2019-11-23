@@ -15,6 +15,7 @@
 </head>
 <body>
     @include('inc.navbar')
+    @yield('maps')
     <div id="app">
         <div class="container">
             @yield('content')
