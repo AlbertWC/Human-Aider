@@ -29,6 +29,7 @@
         position : latlon,
         title: 'albert testing here'
       });
+      
       marker.setMap(map);
     }
 
