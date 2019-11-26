@@ -1,10 +1,14 @@
 @extends('layouts.app')
+
 @section('maps')
 <style>
     /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
     #map {
-      height: 50%;
+      height: 60%;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
     }
     /* Optional: Makes the sample page fill the window. */
     html, body {
@@ -39,6 +43,86 @@
 @endsection
 
 @section('content')
+
+  <div class="well">
+    <div class="row">
+
+      <div class="col-xs-4">
+        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victime_{{$profile->id}}" width="200px" height="200px">
+      </div>
+
+      <div class="col-xs-8">
+      <h3>Case {{$profile->id}}: 
+          @if ($profile->type == 0)
+              Forced Labour
+          @elseif($profile->type == 1)
+              Sexual Exploitation
+          @else
+              Child Slavery
+          @endif</h3>
+
+          <h4> 
+            Description : {{$profile->description}}
+          </h4>
+         
+          <br>
+          <h4>Find if you found this person, Please contact the number below: </h4>
+          <h4>Name: {{$profile->ffname}}</h4>
+          <h4>Contact: {{$profile->ffcontact}}</h4>
+          
+      </div>
+    </div>
+  </div>
+@endsection
+
+@section('comment')
+    <h4>Comments: </h4>
+ 
+    <div class="well">
+        {{Form::open(['action' => ['PostController@addcomment', $profile->id], 'method' => 'POST']) }}
+          {{Form::text('comment', '', ['class' => 'form-control', 'placeholder' => 'Insert your Comment here'])}}
+
+
+          <input type="hidden" name="commentlat" id="commentlat">
+          <input type="hidden" name="commentlon" id="commentlon">
+          <script>
+              if(navigator.geolocation)
+              {
+                  navigator.geolocation.getCurrentPosition(function(position)
+                  {
+                      
+                      let commentlat = position.coords.latitude;
+                      let commentlon = position.coords.longitude;
+                      document.getElementById('commentlat').value = position.coords.latitude;
+                      document.getElementById('commentlon').value = position.coords.longitude;
+                      console.log(document.getElementById('commentlat').value);        
+                  });
+              }
+          </script>
+          
+          {{Form::submit('Comment' ,['class'=> 'btn btn-default'])}}
+        {{Form::close()}}
+    
+      
+      @if (count($comment) > 0)
+        @foreach ($comment  as $commentlist)
+        <div class="well">
+          {{$commentlist->user->name}}: 
+          <br>
+          {{$commentlist->comment}}
+        </div>
+          <br>
+
+        @endforeach
+        test
+      @else
+        No Comments        
+      @endif
+        
+    </div>
+    
+    <br>
+    
     
 @endsection
     

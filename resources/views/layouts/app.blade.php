@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 </head>
 <body>
     @include('inc.navbar')
@@ -19,6 +20,7 @@
     <div id="app">
         <div class="container">
             @yield('content')
+            @yield('comment')
         </div>
     </div>
 

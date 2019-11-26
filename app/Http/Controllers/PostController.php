@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\VictimProfile;
+use App\Comment;
+use App\User;
+use App\Maps;
 
 class PostController extends Controller
 {
@@ -80,10 +83,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $profile = VictimProfile::find($id);
-        return view('posts.show')->with('profile', $profile);
+        $request->session()->put('victim_id', $id);
+        $comment = Comment::where('victim_id' ,'=', $id)->get();
+        // return($comment);
+        // dd($profile->comment()->comment);
+        // $id = $request->session()->put('victim_id');
+        return view('posts.show')->with('profile', $profile)->with('comment', $comment);
         
     }
 
@@ -119,5 +127,26 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function addcomment(Request $request)
+    {
+        $this->validate($request, [
+            'comment' => 'required'
+            
+        ]);
+        $comment = new Comment();
+        $comment->victim_id = $request->session()->get('victim_id');
+        $comment->user_id = auth()->user()->id;
+        $comment->comment = $request->input('comment');
+        $comment->save();
+
+        $maps = new Maps();
+        $maps->victim_id = $request->session()->get('victim_id');
+        $maps->user_id = auth()->user()->id;
+        $maps->lat = $request->input('commentlat');
+        $maps->lon = $request->input('commentlon');
+        $maps->save();
+
+        return back();
     }
 }

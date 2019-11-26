@@ -2,7 +2,7 @@
 
 
 @section('content')
-    {{Form::open(['action' => 'PostController@store', 'method' => 'POST', 'enctype'=> 'multipart/form-data'])}}
+    {{Form::open(['action' => 'PostController@store', 'method' => 'POST', 'enctype'=> 'multipart/form-data'] ) }}
         
         <h1>Victim Profile</h1>
         {{Form::label('type', 'Type of Human Trafficking')}}
@@ -29,7 +29,7 @@
 
         {{-- save current user location --}}
         <input type="hidden" name="lat" id="lat">
-        <input type="hidden" name="lon" id="lon">
+        <input type="hidden" name="lon" id="lon">*
         <script>
             if(navigator.geolocation)
             {
