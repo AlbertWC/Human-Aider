@@ -1,6 +1,42 @@
 @extends('layouts.app')
 
+
 @section('maps')
+
+{{-- the locations database --}}
+<script>var mapsarray = [];</script>
+@foreach ($maps as $item)
+    {{-- create 2d array  --}}
+    <script> var lat = parseFloat({{$item->lat}});</script>
+    <script> var lon = parseFloat({{$item->lon}});</script>
+    <script> var array = new Array({{count($maps)}});</script>
+    <script>
+      array = [
+        parseFloat({{$item->lat}}),parseFloat({{$item->lon}})
+      ];
+      // console.log(array);
+      mapsarray.push(array);
+
+    </script>
+    {{-- <script type="text/javascript"> 
+    for (let i = 0; i < array.length; i++) 
+    {
+      // checker locations
+      if(i % 2 == 0 )
+        {
+        array[i] = "lat:{{$item->lat}}";
+        }
+        else
+        {
+        array[i] = "lon:{{$item->lon}}";
+        }   
+      // console.log(array); 
+
+    }
+    </script> --}}
+@endforeach
+
+
 <style>
     /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
@@ -19,27 +55,48 @@
   </style>
 </head>
 <body>
+  <script>console.log(mapsarray)</script>
   <div id="map"></div>
   <script>
     var map;
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}} },
-        zoom: 17
+        zoom: 15
       });
 
-      latlon = {lat : {{$profile->victimcurrentlat}} , lng: {{$profile->victimcurrentlon}} };
-      var marker = new google.maps.Marker({
-        position : latlon,
-        title: 'albert testing here'
+      //default marker
+      // latlon = {lat : {{$profile->victimcurrentlat}} , lng: {{$profile->victimcurrentlon}} };
+      // var marker = new google.maps.Marker({
+      //   position : latlon,
+      //   title: 'albert testing here'
+      // });
+
+      for (let i = 0; i < mapsarray.length; i++) {
+        addMarker({ lat:mapsarray[i][0],lng:mapsarray[i][1] });
+      }
+
+
+      // addmarker()
+      function addMarker(coords)
+      {
+        var marker = new google.maps.Marker({
+          position:coords,
+          map:map,
+        })
+      }
+
+      marker.addListener('click', function(){
+        infoWindow.open(map, marker)
       });
-      
-      marker.setMap(map);
+   
     }
 
   </script>
+
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA&callback=initMap"
-  async defer></script>
+  async defer>
+  </script>
 @endsection
 
 @section('content')
@@ -82,7 +139,6 @@
         {{Form::open(['action' => ['PostController@addcomment', $profile->id], 'method' => 'POST']) }}
           {{Form::text('comment', '', ['class' => 'form-control', 'placeholder' => 'Insert your Comment here'])}}
 
-
           <input type="hidden" name="commentlat" id="commentlat">
           <input type="hidden" name="commentlon" id="commentlon">
           <script>
@@ -90,16 +146,14 @@
               {
                   navigator.geolocation.getCurrentPosition(function(position)
                   {
-                      
                       let commentlat = position.coords.latitude;
                       let commentlon = position.coords.longitude;
                       document.getElementById('commentlat').value = position.coords.latitude;
                       document.getElementById('commentlon').value = position.coords.longitude;
-                      console.log(document.getElementById('commentlat').value);        
                   });
               }
           </script>
-          
+
           {{Form::submit('Comment' ,['class'=> 'btn btn-default'])}}
         {{Form::close()}}
     
@@ -114,7 +168,6 @@
           <br>
 
         @endforeach
-        test
       @else
         No Comments        
       @endif

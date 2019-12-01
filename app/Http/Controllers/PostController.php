@@ -74,6 +74,12 @@ class PostController extends Controller
         $profile->ffcontact  =$request->input('ffcontact');
         $profile->save();
 
+        $maps = new Maps();
+        $maps->victim_id = $request->session()->get('victim_id');
+        $maps->user_id = auth()->user()->id;
+        $maps->lat = $request->input('lat');
+        $maps->lon = $request->input('lon');
+
         return redirect('posts')->with('success', 'Create Profile Successed');
     }
 
@@ -88,10 +94,23 @@ class PostController extends Controller
         $profile = VictimProfile::find($id);
         $request->session()->put('victim_id', $id);
         $comment = Comment::where('victim_id' ,'=', $id)->get();
+        $maps = Maps::where('victim_id','=', $id)->get();
+        $locationlist = array();
+        foreach($maps as $mapslist)
+        {
+            $locationlist[] = ['lat'=> $mapslist->lat , 'lon' => $mapslist->lon];
+        }
+        $data = array(
+            'profile' => $profile,
+            'comment' => $comment,
+            'maps' => $maps,
+            'locationlist' => $locationlist,
+        );
+        // dd($locationlist);
         // return($comment);
         // dd($profile->comment()->comment);
         // $id = $request->session()->put('victim_id');
-        return view('posts.show')->with('profile', $profile)->with('comment', $comment);
+        return view('posts.show')->with($data);
         
     }
 
