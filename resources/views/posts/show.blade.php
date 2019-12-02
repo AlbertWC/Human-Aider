@@ -76,6 +76,14 @@
         addMarker({ lat:mapsarray[i][0],lng:mapsarray[i][1] });
       }
 
+      var circle = new google.maps.Circle({
+        map: map,
+        center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}} },
+        radius: 0.11145972222,
+        strokeColor: "#FFFFFF",
+        strokeWeight: 3,
+        fillColor: "#00FF00",
+      })
 
       // addmarker()
       function addMarker(coords)
@@ -89,7 +97,7 @@
       marker.addListener('click', function(){
         infoWindow.open(map, marker)
       });
-   
+      circle.setMap(map);
     }
 
   </script>
