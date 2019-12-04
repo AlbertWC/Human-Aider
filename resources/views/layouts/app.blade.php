@@ -19,6 +19,7 @@
     @yield('maps')
     <div id="app">
         <div class="container">
+            @yield('buttonfunc')
             @yield('content')
             @yield('comment')
         </div>
