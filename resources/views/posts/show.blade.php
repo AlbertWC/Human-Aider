@@ -57,77 +57,110 @@ var commentarray = [];</script>
   <script>
     
     var typespeed;
-    var actualspeed = 0;
-    
+    var actualspeed = 1;
+    function time(n)
+    {
+      var circle = new google.maps.Circle({
+          map: map,
+          strokeColor: "#000000",
+          center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}}},
+          fillColor: "#00FF00"
+        })
+        console.log(typevehicle);
+      switch (typevehicle)
+      {
+        case "walking":
+        circle.fillColor = "#00FF00";
+        break;
+        case "car": 
+        circle.fillColor = "#FF0000";
+        break;
+        case "train": 
+        circle.fillColor = "#0000FF";
+        break;
+        case "flight":
+        circle.fillColor = "#FFFFFF";
+        break;
+      }
+      switch (n)
+      {
+        case 15:
+        actualspeed = typespeed * 15;
+        console.log(actualspeed);
+        break;
+        case 30:
+        actualspeed = typespeed * 30;
+        console.log(actualspeed);
+        break;
+        case 45:
+        actualspeed = typespeed * 45;
+        console.log(actualspeed);
+        break;
+        case 60:
+        actualspeed = typespeed * 60;
+        console.log(actualspeed);
+        break;
+        case 180:
+        actualspeed = typespeed * 180;
+        console.log(actualspeed);
+        break;
+        case 360:
+        actualspeed = typespeed * 360;
+        console.log(actualspeed);
+        break;
+        case 720:
+        actualspeed = typespeed * 720;
+        console.log(actualspeed);
+        break;
+        case 1440:
+        actualspeed = typespeed * 1440;
+        console.log(actualspeed);
+        break;
+        case 2880:
+        actualspeed = typespeed * 2880;
+        console.log(actualspeed);
+        break;   
+      }
+      circle.setRadius(actualspeed);
+      circle.setMap(map); 
+    }
+    var typevehicle;
     function test(n)
       {
+
         switch (n)
         {
           case 0:
           typespeed = parseInt(document.getElementsByName('speed')[0].value);
           actualspeed = typespeed;
+          typevehicle = "walking";
           console.log(typespeed);
-          circle.fillColor = "#0000FF";
           break;
 
           case 1:
           typespeed = parseInt(document.getElementsByName('speed')[1].value);
           actualspeed = typespeed;
+          typevehicle = "car";
           console.log(typespeed);
-          circle.fillColor = "#FF0000";
           break;
           
           case 2:
           typespeed = parseInt(document.getElementsByName('speed')[2].value);
           actualspeed = typespeed;
+          typevehicle = "train";
           console.log(typespeed);
           break;
         
           case 3:
           typespeed = parseInt(document.getElementsByName('speed')[3].value);
           actualspeed = typespeed;
+          typevehicle = "flight";
           console.log(typespeed);
           break;
         } 
-      circle.setRadius(actualspeed);
-      circle.setMap(map);  
+ 
       }
-      function time(n)
-    {
-      
-      switch (n)
-      {
-        case 15:
-        actualspeed = actualspeed * 15;
-        circle.setRadius(actualspeed);
-        console.log(actualspeed);
-        break;
-        case 30:
-        actualspeed = actualspeed * 30;
-        break;
-        case 45:
-        actualspeed = actualspeed * 45;
-        break;
-        case 60:
-        actualspeed = actualspeed * 60;
-        break;
-        case 180:
-        actualspeed = actualspeed * 180;
-        break;
-        case 360:
-        actualspeed = actualspeed * 360;
-        break;
-        case 720:
-        actualspeed = actualspeed * 720;
-        break;
-        case 1440:
-        actualspeed = actualspeed * 1440;
-        break;
-        case 2880:
-        actualspeed = actualspeed * 2880;
-        break;   
-      }
-    }
+
 
     var map;
     function initMap() {
