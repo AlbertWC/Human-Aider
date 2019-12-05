@@ -58,13 +58,7 @@ var commentarray = [];</script>
     
     var typespeed;
     var actualspeed = 0;
-    var circle = new google.maps.Circle({
-          map: map,
-          center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}} },
-          strokeColor: "#FFFFFF",
-          strokeWeight: 3,
-          fillColor: "#00FF00",
-        }); 
+    
     function test(n)
       {
         switch (n)
