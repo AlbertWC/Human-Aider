@@ -53,7 +53,88 @@ var commentarray = [];</script>
   <script>console.log(mapsarray);
   console.log(commentarray);</script>
   <div id="map"></div>
+  
   <script>
+    
+    var typespeed;
+    var actualspeed = 0;
+    var circle = new google.maps.Circle({
+          map: map,
+          center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}} },
+          strokeColor: "#FFFFFF",
+          strokeWeight: 3,
+          fillColor: "#00FF00",
+        }); 
+    function test(n)
+      {
+        switch (n)
+        {
+          case 0:
+          typespeed = parseInt(document.getElementsByName('speed')[0].value);
+          actualspeed = typespeed;
+          console.log(typespeed);
+          circle.fillColor = "#0000FF";
+          break;
+
+          case 1:
+          typespeed = parseInt(document.getElementsByName('speed')[1].value);
+          actualspeed = typespeed;
+          console.log(typespeed);
+          circle.fillColor = "#FF0000";
+          break;
+          
+          case 2:
+          typespeed = parseInt(document.getElementsByName('speed')[2].value);
+          actualspeed = typespeed;
+          console.log(typespeed);
+          break;
+        
+          case 3:
+          typespeed = parseInt(document.getElementsByName('speed')[3].value);
+          actualspeed = typespeed;
+          console.log(typespeed);
+          break;
+        } 
+      circle.setRadius(actualspeed);
+      circle.setMap(map);  
+      }
+      function time(n)
+    {
+      
+      switch (n)
+      {
+        case 15:
+        actualspeed = actualspeed * 15;
+        circle.setRadius(actualspeed);
+        console.log(actualspeed);
+        break;
+        case 30:
+        actualspeed = actualspeed * 30;
+        break;
+        case 45:
+        actualspeed = actualspeed * 45;
+        break;
+        case 60:
+        actualspeed = actualspeed * 60;
+        break;
+        case 180:
+        actualspeed = actualspeed * 180;
+        break;
+        case 360:
+        actualspeed = actualspeed * 360;
+        break;
+        case 720:
+        actualspeed = actualspeed * 720;
+        break;
+        case 1440:
+        actualspeed = actualspeed * 1440;
+        break;
+        case 2880:
+        actualspeed = actualspeed * 2880;
+        break;   
+      }
+    }
+
     var map;
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
@@ -75,16 +156,11 @@ var commentarray = [];</script>
           });
 
       }
+      
+     
+      console.log(actualspeed);
 
 
-      var circle = new google.maps.Circle({
-        map: map,
-        center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}} },
-        radius: 0,
-        strokeColor: "#FFFFFF",
-        strokeWeight: 3,
-        fillColor: "#00FF00",
-      })
 
       // addmarker()
       function addMarker(props)
@@ -112,7 +188,6 @@ var commentarray = [];</script>
 
       }
 
-      circle.setMap(map);
     }
 
    </script>
@@ -120,35 +195,43 @@ var commentarray = [];</script>
    async defer>
   </script>
 
-    <input type="radio" name="speed" id="typevehicle1" value="3600">Walk+Running
-    <input type="radio" name="speed" value="50000">Car
-    <input type="radio" name="speed" value="200000">Train
-    <input type="radio" name="speed"  value="800000">Flight
-    <br>
+    <input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walk+Running
+    <input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car
+    <input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train
+    <input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight
+    <script>
 
     
+   
+    </script>
+
+    <br>
+    {{-- speed above havent recalculate --}}
+    {{-- all time change to minute already --}}
     {{-- minutes radio --}}
     Minutes
-    <input type="radio" name="typetime"  value="15">15 </button>
-    <input type="radio" name="typetime"  value="30">30</button>
-    <input type="radio" name="typetime"  value="45">45</button>
+    <input type="radio" name="typetime" onclick="time(15);" value="15">15 </button>
+    <input type="radio" name="typetime" onclick="time(30);" value="30">30</button>
+    <input type="radio" name="typetime" onclick="time(45);" value="45">45</button>
     
     <br>
     {{-- hours radio --}}
     Hours
-    <input type="radio" name="typetime" value="1">1</button>
-    <input type="radio" name="typetime" value="3">3</button>
-    <input type="radio" name="typetime" value="6">6</button>
-    <input type="radio" name="typetime" value="12">12</button>
+    <input type="radio" name="typetime" onclick="time(60);" value="60">1</button>
+    <input type="radio" name="typetime" onclick="time(180);" value="180">3</button>
+    <input type="radio" name="typetime" onclick="time(360);" value="360">6</button>
+    <input type="radio" name="typetime" onclick="time(720);" value="720">12</button>
 
     <br>
 
     {{-- days radio --}}
     Days
-    <input type="radio" name="typetime"  value="1">1</button>
-    <input type="radio" name="typetime"  value="2">2</button>
+    <input type="radio" name="typetime" onclick="time(1440)" value="1440">1</button>
+    <input type="radio" name="typetime" onclick="time(2880)" value="2880">2</button>
 
     <br>
+
+    
 
 @endsection
 
