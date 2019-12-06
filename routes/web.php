@@ -23,4 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('posts', 'PostController');
 Route::post('posts/{post}', 'PostController@addcomment');
 
+Route::get('sawvictim', 'SawController@sawvictim');
+Route::post('sawvictim', 'SawController@storeresult');
+
 

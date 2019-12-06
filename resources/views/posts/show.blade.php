@@ -1,4 +1,9 @@
 @extends('layouts.app')
+<meta property="og:title" content="Case:{{$profile->type}}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:description" content="Human Trafficking criminal"/>
+<meta property="og:image" content="/storage/victim_image/{{$profile->victim_image}}"/>
+<meta property="og:url" content="http://127.0.0.1:8000/posts/4"/>
 
 
 @section('maps')
@@ -7,6 +12,7 @@
 <script>var mapsarray = [];
 var commentarray = [];</script>
 @foreach ($maps as $item)
+
     {{-- create 2d array  --}}
     <script> var lat = parseFloat({{$item->lat}});</script>
     <script> var lon = parseFloat({{$item->lon}});</script>
@@ -221,47 +227,50 @@ var commentarray = [];</script>
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA&callback=initMap"
    async defer>
   </script>
-
-    <input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walk+Running
-    <input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car
-    <input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train
-    <input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight
-    <script>
-
-    
-   
-    </script>
-
-    <br>
-    {{-- speed above havent recalculate --}}
-    {{-- all time change to minute already --}}
-    {{-- minutes radio --}}
-    Minutes
-    <input type="radio" name="typetime" onclick="time(15);" value="15">15 </button>
-    <input type="radio" name="typetime" onclick="time(30);" value="30">30</button>
-    <input type="radio" name="typetime" onclick="time(45);" value="45">45</button>
-    
-    <br>
-    {{-- hours radio --}}
-    Hours
-    <input type="radio" name="typetime" onclick="time(60);" value="60">1</button>
-    <input type="radio" name="typetime" onclick="time(180);" value="180">3</button>
-    <input type="radio" name="typetime" onclick="time(360);" value="360">6</button>
-    <input type="radio" name="typetime" onclick="time(720);" value="720">12</button>
-
-    <br>
-
-    {{-- days radio --}}
-    Days
-    <input type="radio" name="typetime" onclick="time(1440)" value="1440">1</button>
-    <input type="radio" name="typetime" onclick="time(2880)" value="2880">2</button>
-
-    <br>
-
-    
-
 @endsection
 
+@section('buttonfunc')
+<div class="well">
+    <div class="row">
+      <label for="">Type of Vehicle</label>
+      <br>
+      <input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walking
+      <br>
+      <input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car
+      <br>
+      <input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train
+      <br>
+      <input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight
+      <br>
+    </div>
+
+    <div class="row">
+  {{-- minutes radio --}}
+  Minutes
+      <input type="radio" name="typetime" onclick="time(15);" value="15">15 </button>
+      <input type="radio" name="typetime" onclick="time(30);" value="30">30</button>
+      <input type="radio" name="typetime" onclick="time(45);" value="45">45</button>
+  
+      <br>
+  {{-- hours radio --}}
+      Hours
+      <input type="radio" name="typetime" onclick="time(60);" value="60">1</button>
+      <input type="radio" name="typetime" onclick="time(180);" value="180">3</button>
+      <input type="radio" name="typetime" onclick="time(360);" value="360">6</button>
+      <input type="radio" name="typetime" onclick="time(720);" value="720">12</button>
+
+      <br>
+
+      {{-- days radio --}}
+      Days
+      <input type="radio" name="typetime" onclick="time(1440)" value="1440">1</button>
+      <input type="radio" name="typetime" onclick="time(2880)" value="2880">2</button>
+
+      <br>
+    </div>
+</div>
+    
+@endsection
 {{-- @section('buttonfunc')
     <button  name="speed" id="speed"value="3600">Walk+Running</button>
     <button  name="speed" id="speed"value="50000">Car</button>
@@ -299,6 +308,10 @@ var commentarray = [];</script>
           
       </div>
     </div>
+      {{-- add whatsapp function --}}
+    <a href="whatsapp://send?text=Case:+ {{$profile->type}} URL: http://127.0.0.1:8000/posts/4" data-action="share/whatsapp/share">Share via Whatsapp</a>
+    {{-- facebook share --}}
+
   </div>
 @endsection
 
