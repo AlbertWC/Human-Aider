@@ -309,8 +309,8 @@ var commentarray = [];</script>
       </div>
     </div>
       {{-- add whatsapp function --}}
-    <a href="whatsapp://send?text=Case:+ {{$profile->type}} URL: http://127.0.0.1:8000/posts/4" data-action="share/whatsapp/share">Share via Whatsapp</a>
-    {{-- facebook share --}}
+      <a href="https://wa.me/?text=Attention, There is a person missing who {{$profile->description}}">Share this</a>
+      {{-- facebook share --}}
 
   </div>
 @endsection

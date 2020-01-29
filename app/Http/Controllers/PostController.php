@@ -79,6 +79,13 @@ class PostController extends Controller
         $maps->user_id = auth()->user()->id;
         $maps->lat = $request->input('lat');
         $maps->lon = $request->input('lon');
+        $maps->save();
+
+        $comment = new Comment();
+        $comment->victim_id = $request->session()->get('victim_id');
+        $comment->user_id = auth()->user()->id;
+        $comment->comment = "Last seen is here";
+        $comment->save();
 
         return redirect('posts')->with('success', 'Create Profile Successed');
     }
@@ -106,7 +113,7 @@ class PostController extends Controller
             'maps' => $maps,
             'locationlist' => $locationlist,
         );
-        // dd($locationlist);
+        // dd($maps);
         // return($comment);
         // dd($profile->comment()->comment);
         // $id = $request->session()->put('victim_id');
