@@ -79,12 +79,14 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Human Aider
                 </div>
 
                 <div class="links">
-                    <a href="/posts">Post</a>
+                    <a href="posts">View Cases</a>
+                    <a href="posts/create"></a>
                 </div>
+                
             </div>
         </div>
     </body>

@@ -8,6 +8,10 @@ use App\Maps;
 
 class SawController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:web',['only' => 'storeresult']);
+    }
     public function sawvictim(Request $request)
     {
         $profile = VictimProfile::paginate(1);

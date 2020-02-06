@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\VictimProfile;
 use App\Comment;
@@ -15,6 +14,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {   
+        $this->middleware('auth:web',['only'=> ['create','store','addcomment']]);
+    }
     public function index()
     {
         $profile = VictimProfile::get();
@@ -44,7 +48,7 @@ class PostController extends Controller
             'description' => 'required',
             'height' => 'required|max:240',
             'gender' => 'required',
-            'victim_image' => 'image|nullable|max:199999',
+            'victim_image' => 'required|max:199999',
             'ffname' => 'required|max:30',
             'ffcontact' => 'required|max:15',
         ]);

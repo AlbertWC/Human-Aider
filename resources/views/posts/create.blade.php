@@ -22,14 +22,14 @@
 
         {{Form::label('gender', 'Victim Gender')}}
         <br>
-        {{Form::radio('gender','1', )}} Male
+        {{Form::radio('gender','1')}} Male
         <br>
         {{Form::radio('gender','0')}} Female
         <br>
 
         {{-- save current user location --}}
         <input type="hidden" name="lat" id="lat">
-        <input type="hidden" name="lon" id="lon">*
+        <input type="hidden" name="lon" id="lon">
         <script>
             if(navigator.geolocation)
             {

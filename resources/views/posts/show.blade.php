@@ -3,7 +3,7 @@
 <meta property="og:type" content="website"/>
 <meta property="og:description" content="Human Trafficking criminal"/>
 <meta property="og:image" content="/storage/victim_image/{{$profile->victim_image}}"/>
-<meta property="og:url" content="http://127.0.0.1:8000/posts/4"/>
+{{-- <meta property="og:url"/> --}}
 
 
 @section('maps')
@@ -176,11 +176,12 @@ var commentarray = [];</script>
       });
 
       //default marker
-      // latlon = {lat : {{$profile->victimcurrentlat}} , lng: {{$profile->victimcurrentlon}} };
-      // var marker = new google.maps.Marker({
-      //   position : latlon,
-      //   title: 'albert testing here'
-      // });
+      latlon = {lat : {{$profile->victimcurrentlat}} , lng: {{$profile->victimcurrentlon}} };
+      var postmarker = new google.maps.Marker({
+        position : latlon,
+        title: 'Last seen',
+        icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+      });
 
       for (let i = 0; i < mapsarray.length; i++) {
         addMarker({ 
@@ -220,6 +221,7 @@ var commentarray = [];</script>
 
 
       }
+      postmarker.setMap(map);
 
     }
 
@@ -309,7 +311,7 @@ var commentarray = [];</script>
       </div>
     </div>
       {{-- add whatsapp function --}}
-      <a href="https://wa.me/?text=Attention, There is a person missing who {{$profile->description}}">Share this</a>
+      <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}">Share this</a>
       {{-- facebook share --}}
 
   </div>
@@ -346,9 +348,12 @@ var commentarray = [];</script>
         <div class="well">
           {{$commentlist->user->name}}: 
           <br>
-          {{$commentlist->comment}}
+          Comment: {{$commentlist->comment}}
+          <br>
+          Time post: {{$commentlist->created_at}}
         </div>
           <br>
+
 
         @endforeach
       @else
