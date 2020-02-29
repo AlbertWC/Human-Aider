@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\VictimProfile;
 use Illuminate\Http\Request;
 use App\Maps;
+use App\Saw;
 
 class SawController extends Controller
 {
@@ -29,6 +30,10 @@ class SawController extends Controller
         $maps->lat = $request->input('sawlat');
         $maps->lon = $request->input('sawlon');
         $maps->save();
+
+        $saw = new Saw();
+        $saw->user_id  = auth()->user()->id;
+        $saw->victim_id = $request->input('id');
         return back();
     }
 }

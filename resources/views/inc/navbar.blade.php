@@ -19,9 +19,9 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <li><a href="posts">View Post</a></li>
+                <li><a href="/posts">View Post</a></li>
                 @if (Auth::guest())
-                    <li><a href="posts/create">Create Post</a></li>
+                <li><a href="posts/create">Create Post</a></li>
                 @endif
                 &nbsp;
             </ul>
@@ -45,6 +45,8 @@
                                              document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
+                                <a href="posts/create">Create Post</a>
+                                <a href="/sawvictim">Did you saw them</a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
