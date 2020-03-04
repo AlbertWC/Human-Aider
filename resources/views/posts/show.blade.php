@@ -53,15 +53,24 @@ var commentarray = [];</script>
       margin: 0;
       padding: 0;
     }
+    table{
+      border: 1px;
+      border-color: black;
+    }
   </style>
 </head>
 <body>
   <script>console.log(mapsarray);
   console.log(commentarray);</script>
   <div id="map"></div>
-  
+
   <script>
-    
+    var center =  [{{$profile->victimcurrentlat}} , {{$profile->victimcurrentlon}}] ;
+    var test = google.maps.LatLng(2.9225, 101.7731);
+    console.log(test);
+    var computed = google.maps.geometry.spherical.computeDistanceBetween(center,test);
+
+    console.log(computed);
     var typespeed;
     var actualspeed = 1;
     function time(n)
@@ -70,7 +79,7 @@ var commentarray = [];</script>
           map: map,
           strokeColor: "#000000",
           center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}}},
-          fillColor: "#00FF00"
+          fillColor: "#00FF00",
         })
         console.log(typevehicle);
       switch (typevehicle)
@@ -176,12 +185,8 @@ var commentarray = [];</script>
       });
 
       //default marker
-      latlon = {lat : {{$profile->victimcurrentlat}} , lng: {{$profile->victimcurrentlon}} };
-      var postmarker = new google.maps.Marker({
-        position : latlon,
-        title: 'Last seen',
-        icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
-      });
+      
+      
 
       for (let i = 0; i < mapsarray.length; i++) {
         addMarker({ 
@@ -221,7 +226,6 @@ var commentarray = [];</script>
 
 
       }
-      postmarker.setMap(map);
 
     }
 
@@ -233,45 +237,65 @@ var commentarray = [];</script>
 
 @section('buttonfunc')
 <div class="well">
-    <div class="row">
-      <label for="">Type of Vehicle</label>
-      <br>
-      <input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walking
-      <br>
-      <input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car
-      <br>
-      <input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train
-      <br>
-      <input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight
-      <br>
+    <div class="col-sm-6"><table>
+      <tr>
+        <th colspan="3">Type of Vehicle</th>
+      </tr>
+      <tr>
+        <td><input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walking</td>
+        <td><input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car</td>
+        <td><input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train</td>
+        <td><input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight</td>
+      </tr>
+    </table>
+    </div>
+    <div class="col-sm-6">
+      <table>
+        <tr>
+          <th colspan="4">Time</th>
+        </tr>
+        <tr>
+          <td colspan="2">Minutes</td>
+          <td colspan="2">Hours</td>
+          <td colspan="2">Days</td>
+        </tr>
+        <tr>
+          <td rowspan="2"><input type="radio" name="typetime" onclick="time(15);" value="15">15 minutes</button></td>
+          <td rowspan="2"><input type="radio" name="typetime" onclick="time(60);" value="60">1 hour</button></td>
+          <td rowspan="2"><input type="radio" name="typetime" onclick="time(1440)" value="1440">1 day</button></tdr>
+        </tr>
+        <tr>
+          <td rowspan="2"><input type="radio" name="typetime" onclick="time(30);" value="30">30 minutes</button></td>
+          <td rowspan="2"><input type="radio" name="typetime" onclick="time(180);" value="180">3 hours</button></td>
+          <td rowspan="2"><input type="radio" name="typetime" onclick="time(2880)" value="2880">2 days</button></td>
+        </tr>
+      </table>
     </div>
 
     <div class="row">
   {{-- minutes radio --}}
   Minutes
-      <input type="radio" name="typetime" onclick="time(15);" value="15">15 </button>
-      <input type="radio" name="typetime" onclick="time(30);" value="30">30</button>
-      <input type="radio" name="typetime" onclick="time(45);" value="45">45</button>
   
+  <td rowspan="2"><input type="radio" name="typetime" onclick="time(45);" value="45">45 minutes</button></td>
       <br>
   {{-- hours radio --}}
       Hours
-      <input type="radio" name="typetime" onclick="time(60);" value="60">1</button>
-      <input type="radio" name="typetime" onclick="time(180);" value="180">3</button>
-      <input type="radio" name="typetime" onclick="time(360);" value="360">6</button>
-      <input type="radio" name="typetime" onclick="time(720);" value="720">12</button>
+     
+      
+      <input type="radio" name="typetime" onclick="time(360);" value="360">6 hours</button>
+      <input type="radio" name="typetime" onclick="time(720);" value="720">12 hours</button>
 
       <br>
 
       {{-- days radio --}}
       Days
-      <input type="radio" name="typetime" onclick="time(1440)" value="1440">1</button>
-      <input type="radio" name="typetime" onclick="time(2880)" value="2880">2</button>
+      
+      
 
       <br>
     </div>
-</div>
-    
+
+  </div>
 @endsection
 {{-- @section('buttonfunc')
     <button  name="speed" id="speed"value="3600">Walk+Running</button>
@@ -285,11 +309,11 @@ var commentarray = [];</script>
   <div class="well">
     <div class="row">
 
-      <div class="col-xs-4">
-        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victime_{{$profile->id}}" width="200px" height="200px">
+      <div class="row-xs-6 col-sm-6">
+        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victim_{{$profile->id}}" width="200px" height="200px">
       </div>
 
-      <div class="col-xs-8">
+      <div class="row-xs-6 col-sm-6">
       <h3>Case {{$profile->id}}: 
           @if ($profile->type == 0)
               Forced Labour

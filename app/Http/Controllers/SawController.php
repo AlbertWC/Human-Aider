@@ -6,6 +6,7 @@ use App\VictimProfile;
 use Illuminate\Http\Request;
 use App\Maps;
 use App\Saw;
+use App\Comment;
 
 class SawController extends Controller
 {
@@ -15,11 +16,19 @@ class SawController extends Controller
     }
     public function sawvictim(Request $request)
     {
-        $profile = VictimProfile::paginate(1);
-
+        $profile = VictimProfile::all();
+        $sawlist = Saw::all();
+        $sawprofile = Saw::paginate(1);
+        $profilelink = VictimProfile::paginate(1);
+        $data = array(
+            'profile' => $profile,
+            'sawlist' => $sawlist,
+            'sawprofile' => $sawprofile,
+            'profilelink' => $profilelink,
+        );
         // dd($profile);
 
-        return view('saw')->with('profile', $profile);
+        return view('saw')->with($data);
     }
     public function storeresult(Request $request)
     {
@@ -34,6 +43,18 @@ class SawController extends Controller
         $saw = new Saw();
         $saw->user_id  = auth()->user()->id;
         $saw->victim_id = $request->input('id');
+        if($request->input('btnyesno') == 'yes')
+        {
+            $saw->sawvictim = 1;
+        }
+        else
+        {
+            $saw->sawvictim = 0;
+        }
+        $saw->save();
+
+        $comment = new Comment();
+
         return back();
     }
 }

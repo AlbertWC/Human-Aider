@@ -48,7 +48,7 @@ class PostController extends Controller
             'description' => 'required',
             'height' => 'required|max:240',
             'gender' => 'required',
-            'victim_image' => 'required|max:199999',
+            'victim_image' => 'required|image|max:199999',
             'ffname' => 'required|max:30',
             'ffcontact' => 'required|max:15',
         ]);
@@ -61,7 +61,7 @@ class PostController extends Controller
 
             $victimImageExtension = $request->file('victim_image')->getClientOriginalExtension();
 
-            $victimImageToStore = $victimImage."_".time()."_".$victimImageExtension;
+            $victimImageToStore = $victimImage."_".time().".".$victimImageExtension;
 
             $path = $request->file('victim_image')->storeAs('public/victim_image', $victimImageToStore);
         }
@@ -79,14 +79,14 @@ class PostController extends Controller
         $profile->save();
 
         $maps = new Maps();
-        $maps->victim_id = $request->session()->get('victim_id');
+        $maps->victim_id = $profile->id;
         $maps->user_id = auth()->user()->id;
         $maps->lat = $request->input('lat');
         $maps->lon = $request->input('lon');
         $maps->save();
 
         $comment = new Comment();
-        $comment->victim_id = $request->session()->get('victim_id');
+        $comment->victim_id = $profile->id;
         $comment->user_id = auth()->user()->id;
         $comment->comment = "Last seen is here";
         $comment->save();

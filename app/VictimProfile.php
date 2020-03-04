@@ -13,8 +13,8 @@ class VictimProfile extends Model
     {
         return $this->hasMany('App\Comment');
     }
-    public function user()
+    public function saw()
     {
-        return $this->belongsTo('App\User', 'user_id', 'id');
+        return $this->hasMany('App\Saw');
     }
 }
