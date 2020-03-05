@@ -24,6 +24,7 @@ class CreateVictimProfilesTable extends Migration
             $table->string('victimcurrentlon');
             $table->string('ffname');
             $table->string('ffcontact');
+            $table->string('address');
             $table->timestamps();
         });
     }

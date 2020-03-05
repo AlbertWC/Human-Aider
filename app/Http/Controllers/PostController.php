@@ -43,6 +43,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        
         $this->validate($request, [
             'type' => 'required',
             'description' => 'required',
@@ -52,7 +53,12 @@ class PostController extends Controller
             'ffname' => 'required|max:30',
             'ffcontact' => 'required|max:15',
         ]);
-
+        // get address
+        $lat = $request->input('lat');
+        $long = $request->input('lon');
+        $address = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA");
+        $json_address = json_decode($address);
+        $full_address = $json_address->results[0]->formatted_address;           
         if($request->hasFile('victim_image'))
         {
             $victimImageWithExt  = $request->file('victim_image')->getClientOriginalName();
@@ -65,7 +71,6 @@ class PostController extends Controller
 
             $path = $request->file('victim_image')->storeAs('public/victim_image', $victimImageToStore);
         }
-
         $profile = new VictimProfile();
         $profile->type = $request->input('type');
         $profile->description = $request->input('description');
@@ -76,6 +81,7 @@ class PostController extends Controller
         $profile->victimcurrentlon = $request->input('lon');
         $profile->ffname = $request->input('ffname');
         $profile->ffcontact  =$request->input('ffcontact');
+        $profile->address  = $full_address;
         $profile->save();
 
         $maps = new Maps();

@@ -17,7 +17,7 @@ class CreateSawsTable extends Migration
             $table->increments('id');
             $table->string('user_id');
             $table->string('victim_id');
-            $table->tinyInteger('sawvictim');
+            $table->boolean('sawvictim')->default(false);
             $table->timestamps();
         });
     }

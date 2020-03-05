@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->increments('id');
             $table->string('victim_id');
             $table->string('user_id');
-            $table->text('comment');
+            $table->text('comment')->default("");
             $table->timestamps();
         });
     }

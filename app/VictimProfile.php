@@ -13,8 +13,9 @@ class VictimProfile extends Model
     {
         return $this->hasMany('App\Comment');
     }
-    public function saw()
+    
+    public function sawvictim()
     {
-        return $this->hasMany('App\Saw');
+        return $this->belongsTo('App\Saw');
     }
 }

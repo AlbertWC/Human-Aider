@@ -16,15 +16,13 @@ class SawController extends Controller
     }
     public function sawvictim(Request $request)
     {
-        $profile = VictimProfile::all();
+        $profile = VictimProfile::simplePaginate(1);
         $sawlist = Saw::all();
-        $sawprofile = Saw::paginate(1);
-        $profilelink = VictimProfile::paginate(1);
+        $page = $request->get('page');
+        // dd($page);
         $data = array(
             'profile' => $profile,
             'sawlist' => $sawlist,
-            'sawprofile' => $sawprofile,
-            'profilelink' => $profilelink,
         );
         // dd($profile);
 
@@ -41,20 +39,24 @@ class SawController extends Controller
         $maps->save();
 
         $saw = new Saw();
+        $comment = new Comment();
         $saw->user_id  = auth()->user()->id;
         $saw->victim_id = $request->input('id');
-        if($request->input('btnyesno') == 'yes')
+        $comment->victim_id = $request->input('id');
+        $comment->user_id = auth()->user()->id;
+        if($request->input('btnyes') == 'yes')
         {
             $saw->sawvictim = 1;
+            $comment->comment = "I saw the victim";
         }
-        else
+        else if($request->input('btnno') == 'no')
         {
             $saw->sawvictim = 0;
+            $comment->comment = "I did not saw the victim";
         }
         $saw->save();
+        $comment->save();
 
-        $comment = new Comment();
-
-        return back();
+        return ;
     }
 }

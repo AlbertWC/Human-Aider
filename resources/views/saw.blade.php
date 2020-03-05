@@ -5,10 +5,6 @@
         <div class="row"> 
             @if (count($profile) > 0)
                 @foreach ($profile as $profilelist)
-                        @if ($profilelist->saw->sawvictim)
-                            
-                        @endif
-                
                         <img src="/storage/victim_image/{{$profilelist->victim_image}}" alt="Victim_{{$profilelist->id}}" width="200px" height="200px">
 
                         {{Form::open(['action'=> ['SawController@storeresult', $profilelist->id], 'method' => 'POST'])}}
@@ -28,16 +24,26 @@
                                 });
                             }
                             </script>
-                            <p>Did you saw this person </p>
+                            <p>Did you saw this person at your current location </p>
+                            <br>
+                            <p>Victim {{$profilelist->id}}</p>
+                            <br>
+                            <p>Description : {{$profilelist->description}}</p>
+                            <br>
+
+                            
+
                             <input type="hidden" name="id" id="{{$profilelist->id}}" value="{{$profilelist->id}}">
-                            <button type="submit" class="btn btn-primary" id="btnyesno" value="1">Yes</button>
-                            <button type="submit" class="btn btn-danger" id="btnyesno" value="0">No</button>
+                            <button type="submit" class="btn btn-primary" name="btnyes" id="btnyes" value="yes">Yes</button>
+                            <button type="submit" class="btn btn-danger" name="btnno" id="btnno" value="no">No</button>
                         {{Form::close()}}
                 @endforeach
             @else
                 Current no Posts
             @endif
         </div>
+        {{$profile->links()}}
     </div>
+    
 
 @endsection

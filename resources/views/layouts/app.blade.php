@@ -16,10 +16,13 @@
 </head>
 <body>
     @include('inc.navbar')
-    @yield('maps')
+    <div class="row">
+    <div class="col-sm-8">@yield('maps')</div>
+    <div class="col-sm-4">@yield('buttonfunc')</div>
+</div>
     <div id="app">
         <div class="container">
-            @yield('buttonfunc')
+            
             @yield('content')
             @yield('comment')
         </div>

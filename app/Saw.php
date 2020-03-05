@@ -9,8 +9,8 @@ class Saw extends Model
     //
     public $table = 'saws';
     public $fillable = ['user_id', 'victim_id','sawvictim'];
-    public function sawvictim()
+    public function victim()
     {
-        return $this->belongsTo('App\VictimProfile','id','victim_id');
+        return $this->hasMany('App\VictimProfile');
     }
 }

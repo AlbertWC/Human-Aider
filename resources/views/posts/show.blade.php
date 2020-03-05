@@ -228,7 +228,6 @@ var commentarray = [];</script>
       }
 
     }
-
    </script>
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA&callback=initMap"
    async defer>
@@ -237,19 +236,22 @@ var commentarray = [];</script>
 
 @section('buttonfunc')
 <div class="well">
-    <div class="col-sm-6"><table>
-      <tr>
-        <th colspan="3">Type of Vehicle</th>
-      </tr>
-      <tr>
-        <td><input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walking</td>
-        <td><input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car</td>
-        <td><input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train</td>
-        <td><input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight</td>
-      </tr>
-    </table>
+  <div class="row">
+    <div class="row-sm-6">
+      <table>
+        <tr>
+          <th colspan="3">Type of Vehicle</th>
+        </tr>
+        <tr>
+          <td><input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walking</td>
+          <td><input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car</td>
+          <td><input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train</td>
+          <td><input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight</td>
+        </tr>
+      </table>
     </div>
-    <div class="col-sm-6">
+
+    <div class="row-sm-6">
       <table>
         <tr>
           <th colspan="4">Time</th>
@@ -260,42 +262,27 @@ var commentarray = [];</script>
           <td colspan="2">Days</td>
         </tr>
         <tr>
-          <td rowspan="2"><input type="radio" name="typetime" onclick="time(15);" value="15">15 minutes</button></td>
-          <td rowspan="2"><input type="radio" name="typetime" onclick="time(60);" value="60">1 hour</button></td>
-          <td rowspan="2"><input type="radio" name="typetime" onclick="time(1440)" value="1440">1 day</button></tdr>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(15);" value="15">15 minutes</button></td>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(60);" value="60">1 hour</button></td>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(1440)" value="1440">1 day</button></td>
         </tr>
         <tr>
-          <td rowspan="2"><input type="radio" name="typetime" onclick="time(30);" value="30">30 minutes</button></td>
-          <td rowspan="2"><input type="radio" name="typetime" onclick="time(180);" value="180">3 hours</button></td>
-          <td rowspan="2"><input type="radio" name="typetime" onclick="time(2880)" value="2880">2 days</button></td>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(30);" value="30">30 minutes</button></td>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(180);" value="180">3 hours</button></td>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(2880)" value="2880">2 days</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(45);" value="45">45 minutes</button></td>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(360);" value="360">6 hours</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="2"><input type="radio" name="typetime" onclick="time(720);" value="720">12 hours</button></td>
         </tr>
       </table>
     </div>
-
-    <div class="row">
-  {{-- minutes radio --}}
-  Minutes
-  
-  <td rowspan="2"><input type="radio" name="typetime" onclick="time(45);" value="45">45 minutes</button></td>
-      <br>
-  {{-- hours radio --}}
-      Hours
-     
-      
-      <input type="radio" name="typetime" onclick="time(360);" value="360">6 hours</button>
-      <input type="radio" name="typetime" onclick="time(720);" value="720">12 hours</button>
-
-      <br>
-
-      {{-- days radio --}}
-      Days
-      
-      
-
-      <br>
-    </div>
-
   </div>
+</div>
 @endsection
 {{-- @section('buttonfunc')
     <button  name="speed" id="speed"value="3600">Walk+Running</button>
@@ -309,11 +296,11 @@ var commentarray = [];</script>
   <div class="well">
     <div class="row">
 
-      <div class="row-xs-6 col-sm-6">
-        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victim_{{$profile->id}}" width="200px" height="200px">
+      <div class="row-xs-6 col-sm-3">
+        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victim_{{$profile->id}}" width="250px" height="250px">
       </div>
 
-      <div class="row-xs-6 col-sm-6">
+      <div class="row-xs-6 col-sm-9">
       <h3>Case {{$profile->id}}: 
           @if ($profile->type == 0)
               Forced Labour
@@ -322,21 +309,19 @@ var commentarray = [];</script>
           @else
               Child Slavery
           @endif</h3>
-
           <h4> 
             Description : {{$profile->description}}
           </h4>
-         
-          <br>
+          <h4>Last seen Location: {{$profile->address}}</h3>
           <h4>Find if you found this person, Please contact the number below: </h4>
           <h4>Name: {{$profile->ffname}}</h4>
           <h4>Contact: {{$profile->ffcontact}}</h4>
-          
+          {{-- add whatsapp function --}}
+          <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}">Share this</a>
+          {{-- facebook share --}}
       </div>
     </div>
-      {{-- add whatsapp function --}}
-      <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}">Share this</a>
-      {{-- facebook share --}}
+
 
   </div>
 @endsection
