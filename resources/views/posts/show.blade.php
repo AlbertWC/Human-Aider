@@ -377,6 +377,23 @@ var commentarray = [];</script>
     <h4>Comments: </h4>
  
     <div class="well">
+        
+      @if (count($comment) > 0)
+        @foreach ($comment  as $commentlist)
+        <div class="well">
+          {{$commentlist->user->name}}: 
+          <br>
+          Comment: {{$commentlist->comment}}
+          <br>
+          Time post: {{$commentlist->created_at}}
+        </div>
+          <br>
+
+
+        @endforeach
+      @else
+        No Comments        
+      @endif
         {{Form::open(['action' => ['PostController@addcomment', $profile->id], 'method' => 'POST']) }}
           {{Form::text('comment', '', ['class' => 'form-control', 'placeholder' => 'Insert your Comment here'])}}
 
@@ -399,23 +416,6 @@ var commentarray = [];</script>
         {{Form::close()}}
     
       
-      @if (count($comment) > 0)
-        @foreach ($comment  as $commentlist)
-        <div class="well">
-          {{$commentlist->user->name}}: 
-          <br>
-          Comment: {{$commentlist->comment}}
-          <br>
-          Time post: {{$commentlist->created_at}}
-        </div>
-          <br>
-
-
-        @endforeach
-      @else
-        No Comments        
-      @endif
-        
     </div>
     
     <br>
