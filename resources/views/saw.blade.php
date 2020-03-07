@@ -19,8 +19,6 @@
                                     let sawlon = position.coords.longitude;
                                     document.getElementById('sawlat').value = position.coords.latitude;
                                     document.getElementById('sawlon').value = position.coords.longitude;
-                                    console.log(sawlat);
-                                    console.log(sawlon);
                                 });
                             }
                             </script>
@@ -30,8 +28,7 @@
                             <br>
                             <p>Description : {{$profilelist->description}}</p>
                             <br>
-
-                            
+                            <p>Last seen location: {{$profilelist->address}}</p>
 
                             <input type="hidden" name="id" id="{{$profilelist->id}}" value="{{$profilelist->id}}">
                             <button type="submit" class="btn btn-primary" name="btnyes" id="btnyes" value="yes">Yes</button>

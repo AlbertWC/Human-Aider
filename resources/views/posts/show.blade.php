@@ -148,10 +148,25 @@ var commentarray = [];</script>
         {
           console.log("yes");
           var newmark = new google.maps.LatLng({lat:mapsarray[i][0], lng:mapsarray[i][1]});
+          var newcomment = mapsarray[i][2]  + ":" + commentarray[i];
           var newmarker = new google.maps.Marker({
             position: newmark,
             icon: " http://maps.google.com/mapfiles/ms/icons/purple-dot.png", 
-          })
+          });
+
+          newmarker['infowindow'] = new google.maps.InfoWindow({
+            content: newcomment,
+          });
+
+          google.maps.event.addListener(newmarker, 'mouseover', function()
+          {
+            this['infowindow'].open(map, this);
+            
+          });
+          google.maps.event.addListener(newmarker,'click', function()
+          {
+            this['infowindow'].close();
+          });     
           newmarker.setMap(map);
         }
       
