@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Maps;
 use App\Saw;
 use App\Comment;
+use Hamcrest\Core\HasToString;
 
 class SawController extends Controller
 {
@@ -19,7 +20,9 @@ class SawController extends Controller
         $profile = VictimProfile::simplePaginate(1);
         $sawlist = Saw::all();
         $page = $request->get('page');
-        // dd($page);
+        $pagevalue = $page + 1 ;
+        $request->session()->put('pagevalue' , $pagevalue);
+        // dd($pagevalue);
         $data = array(
             'profile' => $profile,
             'sawlist' => $sawlist,
@@ -30,6 +33,7 @@ class SawController extends Controller
     }
     public function storeresult(Request $request)
     {
+        $page = $request->get('page');
         $id = $request->input('id');
         $maps = new Maps();
         $maps->victim_id = $id;
@@ -56,7 +60,8 @@ class SawController extends Controller
         }
         $saw->save();
         $comment->save();
-
-        return ;
+        $value = $request->session()->get('pagevalue');
+        dd($value);
+        return redirect('/sawvictim?page=$value')->with('value', $value);
     }
 }

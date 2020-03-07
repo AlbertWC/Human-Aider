@@ -63,16 +63,10 @@ var commentarray = [];</script>
   <script>console.log(mapsarray);
   console.log(commentarray);</script>
   <div id="map"></div>
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA&callback=initMap&libraries=geometry"
+  async defer>
+ </script>
   <script>
-    var center =  [{{$profile->victimcurrentlat}} , {{$profile->victimcurrentlon}}] ;
-    var test = google.maps.LatLng(2.9225, 101.7731);
-    console.log(test);
-    var computed = google.maps.geometry.spherical.computeDistanceBetween(center,test);
-
-    console.log(computed);
-    var typespeed;
-    var actualspeed = 1;
     function time(n)
     {
       var circle = new google.maps.Circle({
@@ -80,8 +74,10 @@ var commentarray = [];</script>
           strokeColor: "#000000",
           center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}}},
           fillColor: "#00FF00",
-        })
-        console.log(typevehicle);
+        });
+      
+      console.log(typevehicle);
+      
       switch (typevehicle)
       {
         case "walking":
@@ -97,8 +93,10 @@ var commentarray = [];</script>
         circle.fillColor = "#FFFFFF";
         break;
       }
+      var actualspeed = 1;
       switch (n)
       {
+        
         case 15:
         actualspeed = typespeed * 15;
         console.log(actualspeed);
@@ -137,47 +135,108 @@ var commentarray = [];</script>
         break;   
       }
       circle.setRadius(actualspeed);
-      circle.setMap(map); 
+      var center = new google.maps.LatLng({{$profile->victimcurrentlat}},{{$profile->victimcurrentlon}});
+      // console.log(center);
+      for(let i = 0 ; i < mapsarray.length; i++)
+      {
+        var eachmarkerpos = new google.maps.LatLng(mapsarray[i][0],mapsarray[i][1]);
+        // console.log(eachmarkerpos);
+        var computed = google.maps.geometry.spherical.computeDistanceBetween(center,eachmarkerpos);
+        console.log(computed);
+        
+        if(computed < actualspeed)
+        {
+          console.log("yes");
+          var newmark = new google.maps.LatLng({lat:mapsarray[i][0], lng:mapsarray[i][1]});
+          var newmarker = new google.maps.Marker({
+            position: newmark,
+            icon: " http://maps.google.com/mapfiles/ms/icons/purple-dot.png", 
+          })
+          newmarker.setMap(map);
+        }
+      
+      }
+      circle.setMap(map);
     }
+
+    function checker()
+    {
+      // var center = new google.maps.LatLng({{$profile->victimcurrentlat}},{{$profile->victimcurrentlon}});
+      // // console.log(center);
+      // for(let i = 0 ; i < mapsarray.length; i++)
+      // {
+      //   var eachmarkerpos = new google.maps.LatLng(mapsarray[i][0],mapsarray[i][1]);
+      //   // console.log(eachmarkerpos);
+      //   var computed = google.maps.geometry.spherical.computeDistanceBetween(center,eachmarkerpos);
+      //   console.log(computed);
+        
+      //   if(computed < actualspeed)
+      //   {
+      //     console.log("yes");
+      //     marker.icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+      //   }
+      
+      // }
+    }
+   
+
+    // function updateMarkercolor()
+    // {
+    //   var marker = new google.maps.Marker
+    //   ({
+    //     icon:"http://maps.google.com/mapfiles/ms/icons/purple-dot.png",
+    //   });
+    // }
+  
     var typevehicle;
     function test(n)
+    {
+      switch (n)
       {
+        case 0:
+        typespeed = parseInt(document.getElementsByName('speed')[0].value);
+        typevehicle = "walking";
+        break;
 
-        switch (n)
-        {
-          case 0:
-          typespeed = parseInt(document.getElementsByName('speed')[0].value);
-          actualspeed = typespeed;
-          typevehicle = "walking";
-          console.log(typespeed);
-          break;
-
-          case 1:
-          typespeed = parseInt(document.getElementsByName('speed')[1].value);
-          actualspeed = typespeed;
-          typevehicle = "car";
-          console.log(typespeed);
-          break;
-          
-          case 2:
-          typespeed = parseInt(document.getElementsByName('speed')[2].value);
-          actualspeed = typespeed;
-          typevehicle = "train";
-          console.log(typespeed);
-          break;
+        case 1:
+        typespeed = parseInt(document.getElementsByName('speed')[1].value);
+        typevehicle = "car";
+        break;
         
-          case 3:
-          typespeed = parseInt(document.getElementsByName('speed')[3].value);
-          actualspeed = typespeed;
-          typevehicle = "flight";
-          console.log(typespeed);
-          break;
-        } 
- 
-      }
+        case 2:
+        typespeed = parseInt(document.getElementsByName('speed')[2].value);
+        typevehicle = "train";
+        break;
+      
+        case 3:
+        typespeed = parseInt(document.getElementsByName('speed')[3].value);
+        typevehicle = "flight";
+        break;
+      } 
+    }
 
+    function addMarker(props)
+    {
+      marker = new google.maps.Marker({
+        position:props.coords,
+        map:map,
+        icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+      });
 
-    var map;
+      marker['infowindow'] = new google.maps.InfoWindow({
+        content: props.content,
+      });
+
+      google.maps.event.addListener(marker, 'mouseover', function()
+      {
+        this['infowindow'].open(map, this);
+        
+      });
+      google.maps.event.addListener(marker,'click', function()
+      {
+        this['infowindow'].close();
+      });     
+    }
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: {{$profile->victimcurrentlat}}, lng: {{$profile->victimcurrentlon}} },
@@ -186,52 +245,23 @@ var commentarray = [];</script>
 
       //default marker
       
-      
-
       for (let i = 0; i < mapsarray.length; i++) {
+        
         addMarker({ 
           coords: {lat:mapsarray[i][0], lng:mapsarray[i][1]},
           content: mapsarray[i][2] + ":" +commentarray[i] , 
           });
-
       }
+
       
-     
-      console.log(actualspeed);
-
-
 
       // addmarker()
-      function addMarker(props)
-      {
-        var marker = new google.maps.Marker({
-          position:props.coords,
-          map:map,
-          
-          
-        });
-        marker['infowindow'] = new google.maps.InfoWindow({
-          content: props.content,
-        });
-
-        google.maps.event.addListener(marker, 'mouseover', function()
-        {
-          this['infowindow'].open(map, this);
-          
-        });
-        google.maps.event.addListener(marker,'click', function()
-        {
-          this['infowindow'].close();
-        });      
-
-
-      }
+      
 
     }
    </script>
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA&callback=initMap"
-   async defer>
-  </script>
+
+  
 @endsection
 
 @section('buttonfunc')
@@ -282,7 +312,9 @@ var commentarray = [];</script>
       </table>
     </div>
   </div>
+  <input type="button" name="clear" onclick="clearMarker();" value="clear">
 </div>
+
 @endsection
 {{-- @section('buttonfunc')
     <button  name="speed" id="speed"value="3600">Walk+Running</button>
