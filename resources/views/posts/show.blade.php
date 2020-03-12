@@ -67,8 +67,11 @@ var commentarray = [];</script>
   async defer>
  </script>
   <script>
+    var yescounter = 0;
+    var totalcounter = 0;
     function time(n)
     {
+      
       var circle = new google.maps.Circle({
           map: map,
           strokeColor: "#000000",
@@ -96,7 +99,6 @@ var commentarray = [];</script>
       var actualspeed = 1;
       switch (n)
       {
-        
         case 15:
         actualspeed = typespeed * 15;
         console.log(actualspeed);
@@ -143,15 +145,16 @@ var commentarray = [];</script>
         // console.log(eachmarkerpos);
         var computed = google.maps.geometry.spherical.computeDistanceBetween(center,eachmarkerpos);
         console.log(computed);
-        
+        totalcounter++;
         if(computed < actualspeed)
         {
           console.log("yes");
+          yescounter++;
           var newmark = new google.maps.LatLng({lat:mapsarray[i][0], lng:mapsarray[i][1]});
           var newcomment = mapsarray[i][2]  + ":" + commentarray[i];
           var newmarker = new google.maps.Marker({
             position: newmark,
-            icon: " http://maps.google.com/mapfiles/ms/icons/purple-dot.png", 
+            icon: " http://maps.google.com/mapfiles/ms/icons/pink-dot.png", 
           });
 
           newmarker['infowindow'] = new google.maps.InfoWindow({
@@ -174,34 +177,6 @@ var commentarray = [];</script>
       circle.setMap(map);
     }
 
-    function checker()
-    {
-      // var center = new google.maps.LatLng({{$profile->victimcurrentlat}},{{$profile->victimcurrentlon}});
-      // // console.log(center);
-      // for(let i = 0 ; i < mapsarray.length; i++)
-      // {
-      //   var eachmarkerpos = new google.maps.LatLng(mapsarray[i][0],mapsarray[i][1]);
-      //   // console.log(eachmarkerpos);
-      //   var computed = google.maps.geometry.spherical.computeDistanceBetween(center,eachmarkerpos);
-      //   console.log(computed);
-        
-      //   if(computed < actualspeed)
-      //   {
-      //     console.log("yes");
-      //     marker.icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
-      //   }
-      
-      // }
-    }
-   
-
-    // function updateMarkercolor()
-    // {
-    //   var marker = new google.maps.Marker
-    //   ({
-    //     icon:"http://maps.google.com/mapfiles/ms/icons/purple-dot.png",
-    //   });
-    // }
   
     var typevehicle;
     function test(n)
@@ -235,7 +210,7 @@ var commentarray = [];</script>
       marker = new google.maps.Marker({
         position:props.coords,
         map:map,
-        icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+        icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
       });
 
       marker['infowindow'] = new google.maps.InfoWindow({
@@ -374,10 +349,9 @@ var commentarray = [];</script>
 @endsection
 
 @section('comment')
-    <h4>Comments: </h4>
- 
+
     <div class="well">
-        
+      <h4>{{$commentcounter}} comments:</h4>
       @if (count($comment) > 0)
         @foreach ($comment  as $commentlist)
         <div class="well">
@@ -388,8 +362,6 @@ var commentarray = [];</script>
           Time post: {{$commentlist->created_at}}
         </div>
           <br>
-
-
         @endforeach
       @else
         No Comments        
@@ -421,5 +393,76 @@ var commentarray = [];</script>
     <br>
     
     
+@endsection
+
+@section('graph')
+<div class="row-sm-6">
+<canvas id="myChart" width="75" height="75" class="col-sm-6"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Yes', 'No'],
+        datasets: [{
+            label: 'Population of User',
+            data: [{{$yescounter}}, {{$nocounter}}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+</div>
+<div class="rol-sm-6">
+<canvas id="piechart" height="75px" width="75px" class="col-sm-6"></canvas>
+<script>
+  var ctx = document.getElementById('piechart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+          labels: ['No', 'Yes'],
+          datasets: [{
+              label: 'Population of User',
+              data: [{{$nocounter}}, {{$yescounter}}],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+  </script>
+  </div>
 @endsection
     

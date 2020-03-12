@@ -6,6 +6,7 @@ use App\VictimProfile;
 use App\Comment;
 use App\User;
 use App\Maps;
+use App\Saw;
 
 class PostController extends Controller
 {
@@ -22,7 +23,31 @@ class PostController extends Controller
     public function index()
     {
         $profile = VictimProfile::get();
-        return view('posts.index')->with('profile', $profile);
+        $forced = 0;
+        $sexual = 0;
+        $child = 0;
+        foreach($profile as $profilelist)
+        {
+            if($profilelist->type == 0)
+            {
+                $forced++;
+            }
+            elseif($profilelist->type == 1)
+            {
+                $sexual++;
+            }
+            else
+            {
+                $child++;
+            }
+        }
+        $data = array(
+            'profile' => $profile,
+            'forced' => $forced,
+            'sexual' => $sexual,
+            'child' => $child,
+        );
+        return view('posts.index')->with($data);
     }
 
     /**
@@ -43,7 +68,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate($request, [
             'type' => 'required',
             'description' => 'required',
@@ -71,6 +95,7 @@ class PostController extends Controller
 
             $path = $request->file('victim_image')->storeAs('public/victim_image', $victimImageToStore);
         }
+
         $profile = new VictimProfile();
         $profile->type = $request->input('type');
         $profile->description = $request->input('description');
@@ -112,23 +137,45 @@ class PostController extends Controller
         $request->session()->put('victim_id', $id);
         $comment = Comment::where('victim_id' ,'=', $id)->get();
         $maps = Maps::where('victim_id','=', $id)->get();
+        $saw = Saw::all();
         $locationlist = array();
+        $yescounter = 0;
+        $nocounter = 0;
+        $commentcounter = 0;
         foreach($maps as $mapslist)
         {
             $locationlist[] = ['lat'=> $mapslist->lat , 'lon' => $mapslist->lon];
+        }
+        foreach($saw as $sawlist)
+        {
+            if($sawlist->sawvictim == 1 && $sawlist->victim_id == $id)
+            {
+                $yescounter++;
+            }
+            else
+            {
+                $nocounter++;
+            }
+        }
+        foreach($comment as $commentlist)
+        {
+            if($commentlist->victim_id == $id)
+            {
+                $commentcounter++;
+            }
         }
         $data = array(
             'profile' => $profile,
             'comment' => $comment,
             'maps' => $maps,
             'locationlist' => $locationlist,
+            'saw' => $saw,
+            'yescounter' => $yescounter,
+            'nocounter' => $nocounter,
+            'commentcounter' => $commentcounter,
         );
-        // dd($maps);
-        // return($comment);
-        // dd($profile->comment()->comment);
-        // $id = $request->session()->put('victim_id');
         return view('posts.show')->with($data);
-        
+        //fuck you albert :)
     }
 
     /**
@@ -139,7 +186,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+    
     }
 
     /**

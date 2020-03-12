@@ -61,7 +61,6 @@ class SawController extends Controller
         $saw->save();
         $comment->save();
         $value = $request->session()->get('pagevalue');
-        dd($value);
-        return redirect('/sawvictim?page=$value')->with('value', $value);
+        return back();
     }
 }
