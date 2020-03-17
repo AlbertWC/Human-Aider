@@ -60,7 +60,7 @@ class SawController extends Controller
         }
         $saw->save();
         $comment->save();
-        $value = $request->session()->get('pagevalue');
+        // $value = $request->session()->get('pagevalue');
         return back();
     }
 }

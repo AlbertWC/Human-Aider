@@ -214,8 +214,7 @@ class PostController extends Controller
     public function addcomment(Request $request)
     {
         $this->validate($request, [
-            'comment' => 'required'
-            
+            'comment' => 'required'   
         ]);
         $comment = new Comment();
         $comment->victim_id = $request->session()->get('victim_id');
@@ -230,7 +229,13 @@ class PostController extends Controller
         $maps->lon = $request->input('commentlon');
         $maps->save();
 
-        return back();
+        return back()->with('success', 'Comment Added');
+    }
+    public function deletecomment($id)
+    {
+        $comment = Comment::find($id);
+        $comment->delete();
+        return back()->with('danger', 'Comment Removed');
     }
 
 }

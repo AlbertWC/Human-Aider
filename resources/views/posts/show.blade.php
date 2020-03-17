@@ -62,7 +62,10 @@ var commentarray = [];</script>
 <body>
   <script>console.log(mapsarray);
   console.log(commentarray);</script>
-  <div id="map"></div>
+      <div class="col-sm-8">
+        <div id="map"></div>
+      </div>
+    
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA&callback=initMap&libraries=geometry"
   async defer>
  </script>
@@ -255,8 +258,8 @@ var commentarray = [];</script>
 @endsection
 
 @section('buttonfunc')
-<div class="well">
-  <div class="row">
+<div class="col-sm-4">
+  <div class="well">
     <div class="row-sm-6">
       <table>
         <tr>
@@ -302,7 +305,6 @@ var commentarray = [];</script>
       </table>
     </div>
   </div>
-  <input type="button" name="clear" onclick="clearMarker();" value="clear">
 </div>
 
 @endsection
@@ -315,79 +317,85 @@ var commentarray = [];</script>
 
 @section('content')
 
-  <div class="well">
-    <div class="row">
+  <div class="well col-sm-6">
+    <div class="col-sm-6">
 
-      <div class="row-xs-6 col-sm-3">
-        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victim_{{$profile->id}}" width="250px" height="250px">
+      <div class="row">
+        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victim_{{$profile->id}}" width="170px" height="170px">
       </div>
 
-      <div class="row-xs-6 col-sm-9">
-      <h3>Case {{$profile->id}}: 
+      <div class="row">
+      <h4>Case {{$profile->id}}: 
           @if ($profile->type == 0)
               Forced Labour
           @elseif($profile->type == 1)
               Sexual Exploitation
           @else
               Child Slavery
-          @endif</h3>
-          <h4> 
+          @endif</h4>
+          <h5> 
             Description : {{$profile->description}}
-          </h4>
-          <h4>Last seen Location: {{$profile->address}}</h3>
-          <h4>Find if you found this person, Please contact the number below: </h4>
-          <h4>Name: {{$profile->ffname}}</h4>
-          <h4>Contact: {{$profile->ffcontact}}</h4>
+          </h5>
+          <h5>Last seen Location: {{$profile->address}}</h3>
+          <h5>Find if you found this person, Please contact the number below: </h5>
+          <h5>Name: {{$profile->ffname}}</h5>
+          <h5>Contact: {{$profile->ffcontact}}</h5>
           {{-- add whatsapp function --}}
           <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}">Share this</a>
           {{-- facebook share --}}
       </div>
     </div>
-
-
   </div>
 @endsection
 
 @section('comment')
 
-    <div class="well">
-      <h4>{{$commentcounter}} comments:</h4>
-      @if (count($comment) > 0)
-        @foreach ($comment  as $commentlist)
+    <div class="col-sm-6">
+      <div class="card">
         <div class="well">
-          {{$commentlist->user->name}}: 
-          <br>
-          Comment: {{$commentlist->comment}}
-          <br>
-          Time post: {{$commentlist->created_at}}
+        <h4>{{$commentcounter}} comments:</h4>
+        @if (count($comment) > 0)
+          @foreach ($comment  as $commentlist)
+          <div class="well">
+            {{$commentlist->user->name}}: 
+            <br>
+            Comment: {{$commentlist->comment}}
+            <br>
+            Time post: {{$commentlist->created_at}}
+          </div>
+            <br>
+            <div class="bottomright">
+              {{Form::open(['action' => ['PostController@deletecomment', $commentlist->id],'method' => 'POST'])}}
+                {{Form::hidden('_method' , 'DELETE')}}
+                {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+              {{Form::close()}}
+            </div>
+          @endforeach
+        @else
+          No Comments        
+        @endif
+          {{Form::open(['action' => ['PostController@addcomment', $profile->id], 'method' => 'POST']) }}
+            {{Form::text('comment', '', ['class' => 'form-control', 'placeholder' => 'Insert your Comment here'])}}
+
+            <input type="hidden" name="commentlat" id="commentlat">
+            <input type="hidden" name="commentlon" id="commentlon">
+            <script>
+                if(navigator.geolocation)
+                {
+                    navigator.geolocation.getCurrentPosition(function(position)
+                    {
+                        let commentlat = position.coords.latitude;
+                        let commentlon = position.coords.longitude;
+                        document.getElementById('commentlat').value = position.coords.latitude;
+                        document.getElementById('commentlon').value = position.coords.longitude;
+                    });
+                }
+            </script>
+
+            {{Form::submit('Comment' ,['class'=> 'btn btn-default'])}}
+          {{Form::close()}}
         </div>
-          <br>
-        @endforeach
-      @else
-        No Comments        
-      @endif
-        {{Form::open(['action' => ['PostController@addcomment', $profile->id], 'method' => 'POST']) }}
-          {{Form::text('comment', '', ['class' => 'form-control', 'placeholder' => 'Insert your Comment here'])}}
-
-          <input type="hidden" name="commentlat" id="commentlat">
-          <input type="hidden" name="commentlon" id="commentlon">
-          <script>
-              if(navigator.geolocation)
-              {
-                  navigator.geolocation.getCurrentPosition(function(position)
-                  {
-                      let commentlat = position.coords.latitude;
-                      let commentlon = position.coords.longitude;
-                      document.getElementById('commentlat').value = position.coords.latitude;
-                      document.getElementById('commentlon').value = position.coords.longitude;
-                  });
-              }
-          </script>
-
-          {{Form::submit('Comment' ,['class'=> 'btn btn-default'])}}
-        {{Form::close()}}
-    
-      
+      </div>
     </div>
     
     <br>

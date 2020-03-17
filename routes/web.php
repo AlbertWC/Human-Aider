@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -25,5 +25,7 @@ Route::post('posts/{post}', 'PostController@addcomment');
 
 Route::get('sawvictim', 'SawController@sawvictim');
 Route::post('sawvictim', 'SawController@storeresult');
+
+Route::delete('posts/{post}', 'PostController@deletecomment');
 
 

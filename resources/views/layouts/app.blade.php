@@ -14,27 +14,48 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <style>
+        .well
+        {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
 
+        .well:hover,.card:hover
+        {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        html 
+        {
+            scroll-behavior: smooth;
+        }
+        .card-body:hover
+        {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3)
+        }
+        th
+        {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
     @include('inc.navbar')
-    @yield('indexgraph')
-    <div class="row">
-        <div class="container">
-            <div class="col-sm-8">@yield('maps')</div>
-            <div class="col-sm-4">@yield('buttonfunc')</div>
-        </div>
-    </div>
+    @include('inc.message')
+    {{-- @yield('indexgraph') --}}
+    <div class="container">
+        @yield('maps')
+        @yield('buttonfunc')
+    </div>   
     <div id="app">
         <div class="container">
             @yield('content')
             @yield('comment')
-
         </div>
         
     </div>
 
-    @yield('graph')
+    {{-- @yield('graph') --}}
 
 
     <!-- Scripts -->
