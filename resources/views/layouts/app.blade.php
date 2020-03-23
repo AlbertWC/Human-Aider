@@ -37,6 +37,27 @@
         {
             text-align: left;
         }
+        .bottomright
+        {
+            position: absolute;
+            right: 50px;
+        }
+        #btnfunction
+        {
+            padding-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+        }
+        #contentdisplay
+        {
+            justify-content: right;
+            padding-top: 15px;
+        }
+        .a 
+        {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -45,14 +66,23 @@
     {{-- @yield('indexgraph') --}}
     <div class="container">
         @yield('maps')
-        @yield('buttonfunc')
+        <div class="col">
+            <div class="col-sm-3">
+                @yield('buttonfunc')
+            </div>
+            <div class="col-sm-9">
+                @yield('profile')
+            </div>
+        </div>
     </div>   
     <div id="app">
         <div class="container">
-            @yield('content')
-            @yield('comment')
+            
+            <div class="comment">
+             @yield('content')  
+             @yield('comment')
+            </div>
         </div>
-        
     </div>
 
     {{-- @yield('graph') --}}

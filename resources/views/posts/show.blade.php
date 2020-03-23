@@ -62,7 +62,7 @@ var commentarray = [];</script>
 <body>
   <script>console.log(mapsarray);
   console.log(commentarray);</script>
-      <div class="col-sm-8">
+      <div class="col">
         <div id="map"></div>
       </div>
     
@@ -258,51 +258,35 @@ var commentarray = [];</script>
 @endsection
 
 @section('buttonfunc')
-<div class="col-sm-4">
+<div class="col" id="btnfunction">
   <div class="well">
-    <div class="row-sm-6">
-      <table>
-        <tr>
-          <th colspan="3">Type of Vehicle</th>
-        </tr>
-        <tr>
-          <td><input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walking</td>
-          <td><input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car</td>
-          <td><input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train</td>
-          <td><input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight</td>
-        </tr>
-      </table>
-    </div>
+    <div class="row">
+      <div class="a">
+      Type of Vehicle
+      <br>
+      <input type="radio" name="speed" id="walking" onclick="test(0);" value="60">Walking
+      <input type="radio" name="speed" id="speed" onclick="test(1);" value="833.33">Car
+      <input type="radio" name="speed" id="speed" onclick="test(2);" value="3333.33">Train
+      <input type="radio" name="speed" id="speed" onclick="test(3);" value="13333.3">Flight
+      <br>
+      Time
+      <br>
+      Minutes
+      <input type="radio" name="typetime" onclick="time(15);" value="15">15</button>
+      <input type="radio" name="typetime" onclick="time(30);" value="30">30</button>
+      <input type="radio" name="typetime" onclick="time(45);" value="45">45</button>
+      <br>
+      Hours
+      <input type="radio" name="typetime" onclick="time(60);" value="60">1</button>
+      <input type="radio" name="typetime" onclick="time(180);" value="180">3</button>
+      <input type="radio" name="typetime" onclick="time(360);" value="360">6</button>
+      <br>
+      Days
+      <input type="radio" name="typetime" onclick="time(720);" value="720">12</button>
+      <input type="radio" name="typetime" onclick="time(1440)" value="1440">1</button>
+      <input type="radio" name="typetime" onclick="time(2880)" value="2880">2</button>
+      </div>
 
-    <div class="row-sm-6">
-      <table>
-        <tr>
-          <th colspan="4">Time</th>
-        </tr>
-        <tr>
-          <td colspan="2">Minutes</td>
-          <td colspan="2">Hours</td>
-          <td colspan="2">Days</td>
-        </tr>
-        <tr>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(15);" value="15">15 minutes</button></td>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(60);" value="60">1 hour</button></td>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(1440)" value="1440">1 day</button></td>
-        </tr>
-        <tr>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(30);" value="30">30 minutes</button></td>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(180);" value="180">3 hours</button></td>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(2880)" value="2880">2 days</button></td>
-        </tr>
-        <tr>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(45);" value="45">45 minutes</button></td>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(360);" value="360">6 hours</button></td>
-        </tr>
-        <tr>
-          <td colspan="2"></td>
-          <td colspan="2"><input type="radio" name="typetime" onclick="time(720);" value="720">12 hours</button></td>
-        </tr>
-      </table>
     </div>
   </div>
 </div>
@@ -315,42 +299,44 @@ var commentarray = [];</script>
     <button  name="speed" id="speed"value="800000">Flight</button>
 @endsection --}}
 
-@section('content')
-
-  <div class="well col-sm-6">
-    <div class="col-sm-6">
-
-      <div class="row">
-        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victim_{{$profile->id}}" width="170px" height="170px">
+@section('profile')
+<div class="row-sm-6" id="contentdisplay">
+  <div class="well" >
+    <div class="row">
+      <div class="col-sm-3">
+        <img src="/storage/victim_image/{{$profile->victim_image}}" alt="Victim_{{$profile->id}}" width="170px" height="170px" class="center">
       </div>
+      <div class="col-sm-9">
 
-      <div class="row">
-      <h4>Case {{$profile->id}}: 
+        <h4>
+        Case {{$profile->id}}: 
           @if ($profile->type == 0)
               Forced Labour
           @elseif($profile->type == 1)
               Sexual Exploitation
           @else
               Child Slavery
-          @endif</h4>
+          @endif
+        </h4>
           <h5> 
             Description : {{$profile->description}}
           </h5>
-          <h5>Last seen Location: {{$profile->address}}</h3>
+          <h5>Last seen Location: {{$profile->address}}
           <h5>Find if you found this person, Please contact the number below: </h5>
           <h5>Name: {{$profile->ffname}}</h5>
           <h5>Contact: {{$profile->ffcontact}}</h5>
           {{-- add whatsapp function --}}
           <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}">Share this</a>
-          {{-- facebook share --}}
+          {{-- facebook share --}}       
       </div>
     </div>
   </div>
+</div>
 @endsection
 
 @section('comment')
 
-    <div class="col-sm-6">
+    <div class="col">
       <div class="card">
         <div class="well">
         <h4>{{$commentcounter}} comments:</h4>
@@ -362,14 +348,14 @@ var commentarray = [];</script>
             Comment: {{$commentlist->comment}}
             <br>
             Time post: {{$commentlist->created_at}}
-          </div>
             <br>
-            <div class="bottomright">
               {{Form::open(['action' => ['PostController@deletecomment', $commentlist->id],'method' => 'POST'])}}
                 {{Form::hidden('_method' , 'DELETE')}}
-                {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                {{Form::submit('Delete', ['class' => 'btn btn-danger pull-right'])}}
               {{Form::close()}}
-            </div>
+          </div>
+            <br>
+            
           @endforeach
         @else
           No Comments        
@@ -404,7 +390,7 @@ var commentarray = [];</script>
 @endsection
 
 @section('graph')
-<div class="row-sm-6">
+<div class="col-sm-6">
 <canvas id="myChart" width="75" height="75" class="col-sm-6"></canvas>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
