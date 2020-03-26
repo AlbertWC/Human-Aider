@@ -39,20 +39,27 @@
 @endsection
 @section('content')
     @if (count($profile) >0)
-        @foreach ($profile as $profilelist)
-        <div class="well">
-        <a href="/posts/{{$profilelist->id}}">Case {{$profilelist->id}}: 
+        <h2 style="text-align:center;" id="maintitle">List of victims</h2>
+     @foreach ($profile as $profilelist)
+     <div class="card">
+    <div class="card bg-green col-sm-3" id="indexdisplay">
+            <div class="card-body text-center text-white">
+                <a href="/posts/{{$profilelist->id}}">
+                    <div class="card-header text-center">
+                        <img src="/storage/victim_image/{{$profilelist->victim_image}}" alt="" class="rounded" width="200px" height="200px">
+                    </div>
+                    <p id="text">Case {{$profilelist->id}}:</p>
             @if ($profilelist->type == 0)
-                Forced Labour
+                <p id="text">Forced Labour </p> 
             @elseif($profilelist->type == 1)
-                Sexual Exploitation
+                <p id="text">Sexual Exploitation</p>
             @else
-                Child Slavery
+                <p id="text">Child Slavery</p> 
             @endif
-        
         </a>
-                <img src="/storage/victim_image/{{$profilelist->victim_image}}" alt="" width="200px" height="200px">    
         </div>
+      </div>
+     </div>
         @endforeach
     @else 
         no post yet

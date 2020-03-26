@@ -17,22 +17,28 @@
     <style>
         .well
         {
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
             transition: 0.3s;
         }
 
         .well:hover,.card:hover
         {
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
         }
-        html 
+        #body
+        {
+            color: #dcdcdc;
+            background-color: #dcdcdc;
+        }
+        .html 
         {
             scroll-behavior: smooth;
+            background-color: black;
         }
-        .card-body:hover
+        /* .card-body:hover
         {
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3)
-        }
+        } */
         th
         {
             text-align: left;
@@ -58,11 +64,32 @@
         {
             text-align: center;
         }
+        #indexdisplay
+        {
+            border-style: outset;
+            border-radius: 15px;
+            margin : 5px;
+            color: white;
+            background-color: white;
+        }
+        #mainttitle
+        {
+            margin-left: 100px;
+            right: 0px;
+        }
+        #text
+        {
+            color : black;
+        }
+        /* .list
+        {
+            margin-left: 150px;
+        } */
     </style>
 </head>
 <body>
     @include('inc.navbar')
-    @include('inc.message')
+    
     {{-- @yield('indexgraph') --}}
     <div class="container">
         @yield('maps')
@@ -77,9 +104,13 @@
     </div>   
     <div id="app">
         <div class="container">
-            
+            @include('inc.message')
+            <div class="list">
+            @yield('content')  
+
+            </div>
             <div class="comment">
-             @yield('content')  
+
              @yield('comment')
             </div>
         </div>

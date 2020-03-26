@@ -27,7 +27,6 @@ class SawController extends Controller
             'profile' => $profile,
             'sawlist' => $sawlist,
         );
-        // dd($profile);
 
         return view('saw')->with($data);
     }
@@ -60,7 +59,7 @@ class SawController extends Controller
         }
         $saw->save();
         $comment->save();
-        // $value = $request->session()->get('pagevalue');
-        return back();
+        $value = $request->session()->get('pagevalue');
+        return redirect('/sawvictim?page='.$value);
     }
 }
