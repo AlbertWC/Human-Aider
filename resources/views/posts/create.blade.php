@@ -2,17 +2,30 @@
 
 
 @section('content')
+<script type='text/javascript'>
+    function preview_image(event) 
+    {
+    var reader = new FileReader();
+    reader.onload = function()
+    {
+    var output = document.getElementById('output_image');
+    output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
     {{Form::open(['action' => 'PostController@store', 'method' => 'POST', 'enctype'=> 'multipart/form-data'] ) }}
     <div class="col">
         <h1 style="text-align:center;">Victim Profile</h1>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <div class="box">
                 {{Form::label('Image', 'Upload Image')}}
-                {{Form::file('victim_image')}}
+                {{Form::file('victim_image', ['onchange' => 'preview_image(event)'])}}
+                <img id="output_image" width="200px" height="200px">
                 <br>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
         <div class="box">
             <br>
             {{Form::label('gender', 'Victim Gender')}}
