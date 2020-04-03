@@ -2,6 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Human Trafficking Prevention">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,79 +13,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('css/mycss.css')}}" >
+
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
     <style>
-        .well
-        {
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-            transition: 0.3s;
-        }
-
-        .well:hover,.card:hover
-        {
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
-        }
-        #body
-        {
-            color: #dcdcdc;
-            background-color: #dcdcdc;
-        }
-        .html 
-        {
-            scroll-behavior: smooth;
-            background-color: black;
-        }
-        /* .card-body:hover
-        {
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3)
-        } */
-        th
-        {
-            text-align: left;
-        }
-        .bottomright
-        {
-            position: absolute;
-            right: 50px;
-        }
-        #btnfunction
-        {
-            padding-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: left;
-        }
-        #contentdisplay
-        {
-            justify-content: right;
-            padding-top: 15px;
-        }
-        .a 
-        {
-            text-align: center;
-        }
-        #indexdisplay
-        {
-            border-style: outset;
-            border-radius: 15px;
-            margin : 5px;
-            color: white;
-            background-color: white;
-        }
-        #mainttitle
-        {
-            margin-left: 100px;
-            right: 0px;
-        }
-        #text
-        {
-            color : black;
-        }
-        /* .list
-        {
-            margin-left: 150px;
-        } */
+        
     </style>
 </head>
 <body>

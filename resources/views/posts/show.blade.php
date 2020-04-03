@@ -349,10 +349,13 @@ var commentarray = [];</script>
             <br>
             Time post: {{$commentlist->created_at}}
             <br>
-              {{Form::open(['action' => ['PostController@deletecomment', $commentlist->id],'method' => 'POST'])}}
-                {{Form::hidden('_method' , 'DELETE')}}
-                {{Form::submit('Delete', ['class' => 'btn btn-danger pull-right'])}}
-              {{Form::close()}}
+            @if (Auth::guard('web')->check())
+            {{Form::open(['action' => ['PostController@deletecomment', $commentlist->id],'method' => 'POST'])}}
+            {{Form::hidden('_method' , 'DELETE')}}
+            {{Form::submit('Delete', ['class' => 'btn btn-danger pull-right'])}}
+          {{Form::close()}}
+            @endif
+             
           </div>
             <br>
             

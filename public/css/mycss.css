@@ -1,0 +1,87 @@
+body
+{
+    background-color: #dcdcdc;
+}
+h2
+{
+    font-weight: bold;
+}
+/* .form-control
+{
+    width: 250px;
+}
+.box
+{
+    width: 250px;
+    height: 100px;
+} */
+#createpost
+{
+    margin-top: 15px;
+}
+.well
+{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+
+.well:hover,.card:hover
+{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+}
+
+.html 
+{
+    scroll-behavior: smooth;
+    background-color: black;
+}
+/* .card-body:hover
+{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3)
+} */
+th
+{
+    text-align: left;
+}
+.bottomright
+{
+    position: absolute;
+    right: 50px;
+}
+#btnfunction
+{
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+#contentdisplay
+{
+    justify-content: right;
+    padding-top: 15px;
+}
+.a 
+{
+    text-align: center;
+}
+#indexdisplay
+{
+    border-style: outset;
+    border-radius: 15px;
+    margin : 15px;
+    color: white;
+    background-color: white;
+}
+#mainttitle
+{
+    margin-left: 100px;
+    right: 0px;
+}
+#text
+{
+    color : black;
+}
+/* .list
+{
+    margin-left: 150px;
+} */

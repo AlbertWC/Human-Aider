@@ -41,8 +41,8 @@
     @if (count($profile) >0)
         <h2 style="text-align:center;" id="maintitle">List of victims</h2>
      @foreach ($profile as $profilelist)
-     <div class="card">
-    <div class="card bg-green col-sm-3" id="indexdisplay">
+
+    <div class="well bg-green col-sm-3" id="indexdisplay">
             <div class="card-body text-center text-white">
                 <a href="/posts/{{$profilelist->id}}">
                     <div class="card-header text-center">
@@ -59,9 +59,8 @@
         </a>
         </div>
       </div>
-     </div>
         @endforeach
     @else 
-        no post yet
+        <h2 style="text-align: center;">No Post</h2>
     @endif
 @endsection

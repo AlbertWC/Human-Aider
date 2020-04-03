@@ -37,7 +37,7 @@
              {{Form::close()}}
             @endforeach
             @else
-            Current no Posts
+            <h2 style="text-align:center;"> Current no Posts</h2>
             @endif
             {{$profile->links()}}
 
