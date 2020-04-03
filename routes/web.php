@@ -12,7 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    if(Auth::guard('web')->check())
+    {
+        return redirect('posts');
+    }
+    else
+    {
+        return view('auth.login');
+    }
+
 });
 
 Auth::routes();
@@ -27,5 +35,5 @@ Route::get('sawvictim', 'SawController@sawvictim');
 Route::post('sawvictim', 'SawController@storeresult');
 
 Route::delete('posts/{post}', 'PostController@deletecomment');
-
+Route::get('/analytics', 'GraphController@index');
 

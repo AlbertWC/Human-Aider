@@ -24,9 +24,11 @@
 </head>
 <body>
     @include('inc.navbar')
-    
-    {{-- @yield('indexgraph') --}}
+
+    @yield('display')
     <div class="container">
+    @include('inc.message')
+
         @yield('maps')
         <div class="col">
             <div class="col-sm-3">
@@ -39,19 +41,15 @@
     </div>   
     <div id="app">
         <div class="container">
-            @include('inc.message')
             <div class="list">
             @yield('content')  
 
             </div>
             <div class="comment">
-
              @yield('comment')
             </div>
         </div>
     </div>
-
-    {{-- @yield('graph') --}}
 
 
     <!-- Scripts -->
