@@ -23,29 +23,9 @@ class PostController extends Controller
     public function index()
     {
         $profile = VictimProfile::get();
-        $forced = 0;
-        $sexual = 0;
-        $child = 0;
-        foreach($profile as $profilelist)
-        {
-            if($profilelist->type == 0)
-            {
-                $forced++;
-            }
-            elseif($profilelist->type == 1)
-            {
-                $sexual++;
-            }
-            else
-            {
-                $child++;
-            }
-        }
+        
         $data = array(
             'profile' => $profile,
-            'forced' => $forced,
-            'sexual' => $sexual,
-            'child' => $child,
         );
         return view('posts.index')->with($data);
     }
@@ -82,7 +62,12 @@ class PostController extends Controller
         $long = $request->input('lon');
         $address = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA");
         $json_address = json_decode($address);
-        $full_address = $json_address->results[0]->formatted_address;           
+        $full_address = $json_address->results[0]->formatted_address;
+        $state = $json_address->results[0]->address_components[4]->long_name;
+        // dd($state);
+        $country = $json_address->results[0]->address_components[5]->long_name;
+        
+                   
         if($request->hasFile('victim_image'))
         {
             $victimImageWithExt  = $request->file('victim_image')->getClientOriginalName();
@@ -107,6 +92,8 @@ class PostController extends Controller
         $profile->ffname = $request->input('ffname');
         $profile->ffcontact  =$request->input('ffcontact');
         $profile->address  = $full_address;
+        $profile->state = $state;
+        $profile->country = $country;
         $profile->save();
 
         $maps = new Maps();

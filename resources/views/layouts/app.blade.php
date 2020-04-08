@@ -24,11 +24,9 @@
 </head>
 <body>
     @include('inc.navbar')
-
     @yield('display')
     <div class="container">
     @include('inc.message')
-
         @yield('maps')
         <div class="col">
             <div class="col-sm-3">

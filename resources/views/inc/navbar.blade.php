@@ -21,6 +21,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/posts/create">Create Post</a></li>
                 <li><a href="/sawvictim?page=1">Saw Victim</a></li>
+                <li><a href="/analytics"> Analytics</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->
