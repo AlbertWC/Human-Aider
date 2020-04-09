@@ -2,6 +2,12 @@
 
 
 @section('content')
+<script>
+    if(navigator.geolocation.PERMISSION_DENIED)
+    {
+        alert("Hi");
+    }
+</script>
 <script type='text/javascript'>
     function preview_image(event) 
     {
