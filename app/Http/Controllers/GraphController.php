@@ -173,7 +173,7 @@ class GraphController extends Controller
             'negerisembilan' => $negerisembilan,
             
         ];
-        dd($array);
+        // dd($array);
         return view('display')->with($array);
     }
 }

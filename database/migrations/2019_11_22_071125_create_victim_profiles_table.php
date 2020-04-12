@@ -18,6 +18,7 @@ class CreateVictimProfilesTable extends Migration
             $table->string('type');
             $table->string('description');
             $table->integer('height');
+            $table->string('user_id');
             $table->tinyInteger('gender');
             $table->string('victim_image');
             $table->string('victimcurrentlat');
@@ -27,6 +28,7 @@ class CreateVictimProfilesTable extends Migration
             $table->string('address');
             $table->string('state');
             $table->string('country');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

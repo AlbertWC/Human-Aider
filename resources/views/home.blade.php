@@ -13,8 +13,28 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                        
+                   @if (count($posts) > 1 )
+                       <h4>Post you created</h4>
+                       <table class="table table-striped">
+                           <tr>
+                               <th>Case</th>
+                               <th>View</th>
+                           </tr>
+                           @foreach ($posts as $postslist)
+                            <tr>
+                                <th>
+                                    <img src="/storage/victim_image/{{$postslist->victim_image}}" width="200px" height="200px"alt="Victim {{$postslist->id}}">    
+                                </th>
+                                <th>
+                                    <a href="/posts/{{$postslist->id}}" class="btn btn-info">View Post</a>
+                                </th>
+                            </tr>
+                        @endforeach      
+                       </table>
+                                       
+                    @endif
+                    
                 </div>
             </div>
         </div>

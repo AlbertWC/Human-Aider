@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\VictimProfile;
+use App\Comment;
+use App\Saw;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +27,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $comment = Comment::get();
+        $saw = Saw::get();
+        $posts = VictimProfile::where('user_id','=' , auth()->user()->id)->get();
+        $data = array(
+            'posts' => $posts,
+            'comment' => $comment,
+            'saw' => $saw,
+        );
+        return view('home')->with($data);
+    }
+    public function solved()
+    {
+        
     }
 }

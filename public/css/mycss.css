@@ -102,3 +102,13 @@ th
     width: 35vw;
     height: auto;
 }
+li.list-group-item
+{
+    background-color: white;
+    width: 200px;
+    height: 200px;
+}
+.solvedindexdisplay
+{
+    background-color: red;
+}

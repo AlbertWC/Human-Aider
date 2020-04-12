@@ -22,10 +22,11 @@ class PostController extends Controller
     }
     public function index()
     {
-        $profile = VictimProfile::get();
-        
+        $notsolvedprofile = VictimProfile::where('status','=','0')->get();
+        $solvedprofile = VictimProfile::where('status','=','1')->get();
         $data = array(
-            'profile' => $profile,
+            'notsolvedprofile' => $notsolvedprofile,
+            'solvedprofile' => $solvedprofile,
         );
         return view('posts.index')->with($data);
     }
@@ -48,6 +49,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        
+
         $this->validate($request, [
             'type' => 'required',
             'description' => 'required',
@@ -63,10 +66,8 @@ class PostController extends Controller
         $address = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA");
         $json_address = json_decode($address);
         $full_address = $json_address->results[0]->formatted_address;
-        $state = $json_address->results[0]->address_components[4]->long_name;
-        // dd($state);
-        $country = $json_address->results[0]->address_components[5]->long_name;
-        
+        $state = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-2]->long_name;
+        $country = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-1]->long_name;
                    
         if($request->hasFile('victim_image'))
         {
@@ -87,11 +88,13 @@ class PostController extends Controller
         $profile->height = $request->input('height');
         $profile->gender = $request->input('gender');
         $profile->victim_image = $victimImageToStore;
+        $profile->user_id = auth()->user()->id;
         $profile->victimcurrentlat = $request->input('lat');
         $profile->victimcurrentlon = $request->input('lon');
         $profile->ffname = $request->input('ffname');
         $profile->ffcontact  =$request->input('ffcontact');
         $profile->address  = $full_address;
+        $profile->status = 0;
         $profile->state = $state;
         $profile->country = $country;
         $profile->save();
@@ -183,9 +186,35 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        $maps = new Maps();
+        $maps->victim_id = $id;
+        $maps->user_id = auth()->user()->id;
+        $maps->lat = $request->input('sawprofilelat');
+        $maps->lon = $request->input('sawprofilelon');
+        $maps->save();
+
+        $saw = new Saw();
+        $comment = new Comment();
+        $saw->user_id  = auth()->user()->id;
+        $saw->victim_id = $id;
+        $comment->victim_id = $id;
+        $comment->user_id = auth()->user()->id;
+        if($request->input('btnyes') == 'yes')
+        {
+            $saw->sawvictim = 1;
+            $comment->comment = "I saw the victim";
+        }
+        else if($request->input('btnno') == 'no')
+        {
+            $saw->sawvictim = 0;
+            $comment->comment = "I did not saw the victim";
+        }
+        // dd($maps->victim_id);
+        $saw->save();
+        $comment->save();
+        return back()->with('success', $comment->comment);
     }
 
     /**
@@ -224,5 +253,7 @@ class PostController extends Controller
         $comment->delete();
         return back()->with('danger', 'Comment Removed');
     }
+
+
 
 }

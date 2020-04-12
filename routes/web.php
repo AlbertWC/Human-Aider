@@ -37,3 +37,4 @@ Route::post('sawvictim', 'SawController@storeresult');
 Route::delete('posts/{post}', 'PostController@deletecomment');
 Route::get('/analytics', 'GraphController@index');
 
+

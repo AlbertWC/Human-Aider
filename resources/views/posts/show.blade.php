@@ -321,14 +321,41 @@ var commentarray = [];</script>
           <h5> 
             Description : {{$profile->description}}
           </h5>
+          <h5>Gender: 
+            @if($profile->gender == 0)
+            Female
+            @else
+            Male
+          @endif 
+        </h5>
           <h5>Last seen Location: {{$profile->address}}
           <h5>Find if you found this person, Please contact the number below: </h5>
           <h5>Name: {{$profile->ffname}}</h5>
           <h5>Contact: {{$profile->ffcontact}}</h5>
           {{-- add whatsapp function --}}
           <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}">Share this</a>
-          {{-- facebook share --}}       
-      </div>
+          {{-- saw this victim  --}}
+          <h5>Do saw this person?</h5>
+          <br>
+          {{Form::open(['action' => ['PostController@update', $profile->id] ,'method' => 'PUT'  ])}}
+          <input type="hidden" name="sawprofilelat" id="commentlat">
+          <input type="hidden" name="sawprofilelon" id="commentlon">
+          <script>
+            if(navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function(position)
+                {
+                    let sawprofilelat = position.coords.latitude;
+                    let sawprofilelon = position.coords.longitude;
+                    document.getElementById('sawprofilelat').value = position.coords.latitude;
+                    document.getElementById('sawprofilelon').value = position.coords.longitude;
+                });
+            }
+        </script>
+          <button type="submit" class="btn btn-primary" name="btnyes" id="btnyes" value="yes">Yes</button>
+          <button type="submit" class="btn btn-danger" name="btnno" id="btnno" value="no">No</button>
+            {{Form::close()}}
+        </div>
     </div>
   </div>
 </div>
