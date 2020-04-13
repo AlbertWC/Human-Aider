@@ -108,7 +108,11 @@ li.list-group-item
     width: 200px;
     height: 200px;
 }
-.solvedindexdisplay
+#solvedindexdisplay
 {
+    border-style: outset;
+    border-radius: 15px;
+    margin : 15px;
+    color: red;
     background-color: red;
 }

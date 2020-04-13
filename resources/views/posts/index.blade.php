@@ -24,10 +24,10 @@
       </div>
 
         @endforeach
-        @foreach ($solvedprofile as $solvedproilelist)
+        @foreach ($solvedprofile as $solvedprofilelist)
         <div class="well bg-red col-sm-3" id="solvedindexdisplay">
             <div class="card-body text-center text-white">
-                <a href="/posts/{{$sovledprofilelist->id}}">
+                <a href="/posts/{{$solvedprofilelist->id}}">
                     <div class="card-header text-center">
                         <img src="/storage/victim_image/{{$solvedprofilelist->victim_image}}" alt="" class="rounded" width="200px" height="200px">
                     </div>

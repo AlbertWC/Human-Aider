@@ -29,16 +29,26 @@ class HomeController extends Controller
     {
         $comment = Comment::get();
         $saw = Saw::get();
-        $posts = VictimProfile::where('user_id','=' , auth()->user()->id)->get();
+        $solvedposts = VictimProfile::where(['user_id' => auth()->user()->id, 'status' => '1'])->get();
+        $notsolvedposts = VictimProfile::where(['user_id' => auth()->user()->id, 'status' => '0'])->get();
+        // dd($solvedposts);
         $data = array(
-            'posts' => $posts,
+            'solvedposts' => $solvedposts,
+            'notsolvedposts' => $notsolvedposts,
             'comment' => $comment,
             'saw' => $saw,
         );
         return view('home')->with($data);
     }
-    public function solved()
+    public function solvedcase(Request $request)
     {
-        
+        $id = explode('?', $request->getRequestUri());
+        $lastid = end($id);
+        // dd($lastid);
+        $profile = VictimProfile::find($lastid);
+        // dd($profile);
+        $profile->status = 1;
+        $profile->update();
+        return back();
     }
 }

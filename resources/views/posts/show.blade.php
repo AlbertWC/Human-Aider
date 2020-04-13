@@ -332,7 +332,8 @@ var commentarray = [];</script>
           <h5>Find if you found this person, Please contact the number below: </h5>
           <h5>Name: {{$profile->ffname}}</h5>
           <h5>Contact: {{$profile->ffcontact}}</h5>
-          {{-- add whatsapp function --}}
+          @if ($profile->status == 0)
+              {{-- add whatsapp function --}}
           <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}">Share this</a>
           {{-- saw this victim  --}}
           <h5>Do saw this person?</h5>
@@ -355,6 +356,8 @@ var commentarray = [];</script>
           <button type="submit" class="btn btn-primary" name="btnyes" id="btnyes" value="yes">Yes</button>
           <button type="submit" class="btn btn-danger" name="btnno" id="btnno" value="no">No</button>
             {{Form::close()}}
+          @endif
+          
         </div>
     </div>
   </div>
@@ -376,7 +379,7 @@ var commentarray = [];</script>
             <br>
             Time post: {{$commentlist->created_at}}
             <br>
-            @if (Auth::guard('web')->check())
+            @if (Auth::guard('web')->check() && $profile->status == 0)
             {{Form::open(['action' => ['PostController@deletecomment', $commentlist->id],'method' => 'POST'])}}
             {{Form::hidden('_method' , 'DELETE')}}
             {{Form::submit('Delete', ['class' => 'btn btn-danger pull-right'])}}
@@ -390,26 +393,30 @@ var commentarray = [];</script>
         @else
           No Comments        
         @endif
-          {{Form::open(['action' => ['PostController@addcomment', $profile->id], 'method' => 'POST']) }}
-            {{Form::text('comment', '', ['class' => 'form-control', 'placeholder' => 'Insert your Comment here'])}}
+        
+        @if ($profile->status == 0)
+        {{Form::open(['action' => ['PostController@addcomment', $profile->id], 'method' => 'POST']) }}
+        {{Form::text('comment', '', ['class' => 'form-control', 'placeholder' => 'Insert your Comment here'])}}
 
-            <input type="hidden" name="commentlat" id="commentlat">
-            <input type="hidden" name="commentlon" id="commentlon">
-            <script>
-                if(navigator.geolocation)
+        <input type="hidden" name="commentlat" id="commentlat">
+        <input type="hidden" name="commentlon" id="commentlon">
+        <script>
+            if(navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function(position)
                 {
-                    navigator.geolocation.getCurrentPosition(function(position)
-                    {
-                        let commentlat = position.coords.latitude;
-                        let commentlon = position.coords.longitude;
-                        document.getElementById('commentlat').value = position.coords.latitude;
-                        document.getElementById('commentlon').value = position.coords.longitude;
-                    });
-                }
-            </script>
+                    let commentlat = position.coords.latitude;
+                    let commentlon = position.coords.longitude;
+                    document.getElementById('commentlat').value = position.coords.latitude;
+                    document.getElementById('commentlon').value = position.coords.longitude;
+                });
+            }
+        </script>
 
-            {{Form::submit('Comment' ,['class'=> 'btn btn-default'])}}
-          {{Form::close()}}
+        {{Form::submit('Comment' ,['class'=> 'btn btn-default'])}}
+      {{Form::close()}}
+        @endif
+
         </div>
       </div>
     </div>

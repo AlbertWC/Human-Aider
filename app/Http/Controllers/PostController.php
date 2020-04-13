@@ -186,6 +186,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //saw function in each post
     public function update(Request $request,$id)
     {
         $maps = new Maps();
