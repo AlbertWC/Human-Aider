@@ -23,6 +23,8 @@
     </style>
 </head>
 <body>
+    <script>
+    </script>
     @include('inc.navbar')
     @yield('display')
     <div class="container">
@@ -48,7 +50,7 @@
             </div>
         </div>
     </div>
-
+    
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

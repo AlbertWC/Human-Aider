@@ -3,10 +3,7 @@
 
 @section('content')
 <script>
-    if(navigator.geolocation.PERMISSION_DENIED)
-    {
-        alert("Hi");
-    }
+    navigator.geolocation;
 </script>
 <script type='text/javascript'>
     function preview_image(event) 
@@ -60,17 +57,25 @@
             <input type="hidden" name="lat" id="lat">
             <input type="hidden" name="lon" id="lon">
             <script>
-                if(navigator.geolocation)
-                {
-                    navigator.geolocation.getCurrentPosition(function(position)
-                    {
-                        var lat = position.coords.latitude;
-                        var lon = position.coords.longitude;
-                        document.getElementById('lat').value = position.coords.latitude;
-                        document.getElementById('lon').value = position.coords.longitude;
-                        
+            navigator.geolocation.getCurrentPosition(function(position)
+            {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+                document.getElementById('lat').value = position.coords.latitude;
+                document.getElementById('lon').value = position.coords.longitude;
+                
+            },
+            function()
+            {
+                alert('Please reactivate your device location at your browser to help the victim');
+            }
+            );  
+                navigator.permissions.query({name:'geolocation'}).then(function(result) {
+                    if (result.state == 'prompt') {
+                    alert('Please enable location to help the victim');
+                    }
+
                     });
-                }
             </script> 
 
                 {{Form::label('ffname', 'Family / Friend Name')}}

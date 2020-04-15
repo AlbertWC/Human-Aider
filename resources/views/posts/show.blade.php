@@ -350,7 +350,17 @@ var commentarray = [];</script>
                     let sawprofilelon = position.coords.longitude;
                     document.getElementById('sawprofilelat').value = position.coords.latitude;
                     document.getElementById('sawprofilelon').value = position.coords.longitude;
+                },
+                function()
+                {
+                    alert('Please reactivate your device location at your browser to help the victim');
                 });
+                navigator.permissions.query({name:'geolocation'}).then(function(result) {
+                    if (result.state == 'prompt') {
+                    alert('Please enable location to help the victim');
+                    }
+
+                    });
             }
         </script>
           <button type="submit" class="btn btn-primary" name="btnyes" id="btnyes" value="yes">Yes</button>
