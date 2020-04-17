@@ -66,8 +66,9 @@ class PostController extends Controller
         $address = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA");
         $json_address = json_decode($address);
         $full_address = $json_address->results[0]->formatted_address;
-        $state = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-2]->long_name;
-        $country = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-1]->long_name;
+        $state = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-3]->long_name;
+        // dd($state);
+        $country = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-2]->long_name;
                    
         if($request->hasFile('victim_image'))
         {

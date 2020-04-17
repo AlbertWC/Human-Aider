@@ -20,6 +20,15 @@
                         let sawlon = position.coords.longitude;
                         document.getElementById('sawlat').value = position.coords.latitude;
                         document.getElementById('sawlon').value = position.coords.longitude;
+                    }, function()
+                    {
+                        alert('Please reactivate your device location at your browser to help the victim');
+                    });
+                    navigator.permissions.query({name:'geolocation'}).then(function(result) {
+                    if (result.state == 'prompt') {
+                    alert('Please enable location to help the victim');
+                    }
+
                     });
                 }
                 </script>

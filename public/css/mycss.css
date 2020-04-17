@@ -91,23 +91,15 @@ th
     width: 75px;
 } */
 
-.chart-container-pop, .chart-container-pie
-{
 
-    width: 35vw;
-    height: auto;
-}
-.chart-container-linepop
-{
-    width: 35vw;
-    height: auto;
-}
 li.list-group-item
 {
     background-color: white;
     width: 200px;
     height: 200px;
 }
+
+/* chart css */
 #solvedindexdisplay
 {
     border-style: outset;
@@ -115,4 +107,18 @@ li.list-group-item
     margin : 15px;
     color: red;
     background-color: red;
+}
+.chart-container-pop, .chart-container-pie
+{
+
+    width: auto;
+}
+.chart-container-linepop
+{
+    width: auto;
+
+}
+#chart-container-combined
+{
+    width: auto;
 }

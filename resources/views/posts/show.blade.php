@@ -390,9 +390,12 @@ var commentarray = [];</script>
             Time post: {{$commentlist->created_at}}
             <br>
             @if (Auth::guard('web')->check() && $profile->status == 0)
+            @if ($commentlist->user_id == Auth::id())
             {{Form::open(['action' => ['PostController@deletecomment', $commentlist->id],'method' => 'POST'])}}
             {{Form::hidden('_method' , 'DELETE')}}
             {{Form::submit('Delete', ['class' => 'btn btn-danger pull-right'])}}
+            @endif
+            
           {{Form::close()}}
             @endif
              

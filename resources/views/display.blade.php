@@ -3,17 +3,18 @@
 @section('display')
 {{-- barchartpop --}}
 
-<div class="col-sm-4">
+<div class="col-sm-6 col-md-6 col-lg-6">
     <div class="chart-container-pop">
     <canvas id="popchart"></canvas>
     <script>
       var ctx = document.getElementById('popchart').getContext('2d');
       var myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'doughnut',
+          
           data: {
               labels: ['Male', 'Female'],
               datasets: [{
-                  label: [['Male']],
+                  label: ['Male', 'Female'],
                   data: [{{$male}}, {{$female}}],
                   backgroundColor: [
                       'rgba(255, 99, 132, 0.2)',
@@ -27,13 +28,17 @@
               }]
           },
           options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero: true
-                      }
-                  }]
-              }
+            title:{
+              display: true,
+              text: 'Population of Victim'
+          },
+            //   scales: {
+            //       yAxes: [{
+            //           ticks: {
+            //               beginAtZero: true
+            //           }
+            //       }]
+            //   }
           }
       });
       </script>
@@ -41,7 +46,7 @@
 </div>
     {{-- piechart --}}
 
-      <div class="col-sm-4">
+      <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="chart-container-pie">
             <canvas id="piechart"></canvas>
             <script>
@@ -67,20 +72,32 @@
                     }]
                 },
                   options: {
-                      scales: {
-                          yAxes: [{
-                              ticks: {
-                                  beginAtZero: true
-                              }
-                          }]
+                      title: 
+                      {
+                        display: true,
+                        text: "Number of Cases Reported",
+                        
+                      },
+                      legend:
+                      {
+                          display: true,
+                          position: 'bottom',
+                          fontColor: "#000080",
                       }
+                    //   scales: {
+                    //       yAxes: [{
+                    //           ticks: {
+                    //               beginAtZero: true
+                    //           }
+                    //       }]
+                    //   }
                   }
             });
             </script>
         </div>
     </div>
     {{-- line graph --}}
-    <div class="col-sm-4">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="chart-container-linepop">
         <canvas id="linepopchart"></canvas>
         <script>
@@ -139,54 +156,37 @@
         </tr>
     </table> --}}
     {{-- combined bar --}}
-    <div class="col">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="chart-container-combined">
         <canvas id="combinedchart"></canvas>
         <script>
           var combinedctx = document.getElementById('combinedchart').getContext('2d');
           var myChart = new Chart(combinedctx, {
-              type: 'bar',
+              type: 'line',
               data: {
                   labels: ["Johor", "Kuala Lumpur" , "Labuan", "Putrajaya", "Kedah","Kelantan", "Malacca", "Negeri Sembilan","Pahang","Perak","Perlis","Penang", "Sabah","Sarawak","Selangor","Terengganu"],
                   datasets: [{
                       label: 'Victims',
                       data: [{{$johor}},{{$kualalumpur}},{{$labuan}},{{$putrajaya}},{{$kedah}},{{$kelantan}},{{$malacca}},{{$negerisembilan}},{{$pahang}},{{$perak}},{{$perlis}},{{$penang}},{{$sabah}},{{$sarawak}},{{$selangor}}, {{$terengganu}}],
                       backgroundColor: [
-                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(70, 50, 235, 0.2)'
 
                       ],
                       borderColor: [
-                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(0, 0, 235, 0.2)',
 
                       ],
-                      borderWidth: 1
-                  },
-                  {
-                    label: 'Line Dataset',
-                    data: [],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-
-
-                      ],
-                      borderColor: [
-                        'rgba(255, 99, 132, 0.2)',
-
-
-                      ],
-
-                    // Changes this dataset to become a line
-                    type: 'bar'
-                }]
+                    //   borderWidth: 1
+                  }]
               },
               options: {
-                  scales: {
-                      yAxes: [{
-                          ticks: {
-                              beginAtZero: true
-                          }
-                      }]
-                  }
+                //   scales: {
+                //       yAxes: [{
+                //           ticks: {
+                //               beginAtZero: true
+                //           }
+                //       }]
+                //   }
               }
           });
           </script>
@@ -194,3 +194,39 @@
     </div>
     
 @endsection
+{{-- <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="chart-container-linepop">
+    <canvas id="time"></canvas>
+    <script>
+      var ctx = document.getElementById('time').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: ["Jan", "Feb" , "Mar", "Apr", "May","Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"],
+              datasets: [{
+                  label: 'Victims',
+                  data: [{{$jancase}},{{$febcase}},{{$marcase}},{{$aprcase}},{{$maycase}},{{$juncase}},{{$julcase}},{{$augcase}},{{$sepcase}},{{$octcase}},{{$novcase}},{{$deccase}},],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: true
+                      }
+                  }]
+              }
+          }
+      });
+      </script>
+    </div>
+</div> --}}
