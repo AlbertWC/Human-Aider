@@ -22,13 +22,14 @@ class PostController extends Controller
     }
     public function index()
     {
-        $notsolvedprofile = VictimProfile::where('status','=','0')->get();
-        $solvedprofile = VictimProfile::where('status','=','1')->get();
-        $data = array(
-            'notsolvedprofile' => $notsolvedprofile,
-            'solvedprofile' => $solvedprofile,
-        );
-        return view('posts.index')->with($data);
+        $profile = VictimProfile::get();
+        // dd($profile);
+        // $solvedprofile = VictimProfile::where('status','=','1')->get();
+        // $data = array(
+        //     'notsolvedprofile' => $notsolvedprofile,
+        //     'solvedprofile' => $solvedprofile,
+        // );
+        return view('posts.index')->with('profile', $profile);
     }
 
     /**
@@ -50,7 +51,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
         
-
         $this->validate($request, [
             'type' => 'required',
             'description' => 'required',
@@ -63,6 +63,7 @@ class PostController extends Controller
         // get address
         $lat = $request->input('lat');
         $long = $request->input('lon');
+        
         $address = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=AIzaSyBVmmUEe9rAk8JKVDzWUJcXFToBpG023pA");
         $json_address = json_decode($address);
         $full_address = $json_address->results[0]->formatted_address;
@@ -254,6 +255,14 @@ class PostController extends Controller
         $comment = Comment::find($id);
         $comment->delete();
         return back()->with('danger', 'Comment Removed');
+    }
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $profile = VictimProfile::where('description', 'LIKE', '%'.$search.'%')->orWhere('ffname','LIKE','%'.$search.'%')->orWhere('address','LIKE','%'.$search.'%')->orWhere('ffcontact','LIKE','%'.$search.'%')->get();
+
+        return view('posts.index')->with('profile', $profile);
+
     }
 
 

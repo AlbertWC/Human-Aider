@@ -29,6 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::put('/home', 'HomeController@solvedcase');
 
 Route::resource('posts', 'PostController');
+Route::get('/search', 'PostController@search');
 Route::post('posts/{post}', 'PostController@addcomment');
 
 Route::get('sawvictim', 'SawController@sawvictim');
