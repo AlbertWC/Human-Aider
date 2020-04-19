@@ -124,5 +124,12 @@ li.list-group-item
 }
 #table
 {
-    background-color: black;
+    height: 450px;
+    background-color: rgb(166, 209, 238);
+    text-align: center;
+    overflow-y: scroll;
+}
+.th,.td
+{
+    text-align: center;
 }

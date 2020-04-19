@@ -8,6 +8,7 @@ use App\Maps;
 use App\VictimProfile;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use AiFaiz\Malaysia\MyStates;
 
 use DateTime;
 
@@ -49,22 +50,87 @@ class GraphController extends Controller
                 $female++;
             }
         }
+        //state count
         $johor = 0;
+        $johorforced = 0;
+        $johorsexual = 0;
+        $johorchild = 0;
+
         $kualalumpur = 0;
+        $kualalumpurforced = 0;
+        $kualalumpursexual = 0;
+        $kualalumpurchild = 0;
+
         $labuan = 0;
+        $labuanforced = 0;
+        $labuansexual = 0;
+        $labuanchild = 0;
+
         $putrajaya = 0;
+        $putrajayaforced = 0;
+        $putrajayasexual = 0;
+        $putrajayachild = 0;
+
         $kedah = 0;
+        $kedahforced = 0;
+        $kedahsexual = 0;
+        $kedahchild = 0;
+        
         $kelantan = 0;
+        $kelantanforced = 0;
+        $kelantansexual = 0;
+        $kelantanchild = 0;
+        
         $malacca = 0;
+        $malaccaforced = 0;
+        $malaccasexual = 0;
+        $malaccachild = 0;
+        
         $negerisembilan = 0;
+        $negerisembilanforced = 0;
+        $negerisembilansexual = 0;
+        $negerisembilanchild = 0;
+        
         $pahang = 0;
+        $pahangforced = 0;
+        $pahangsexual = 0;
+        $pahangchild = 0;
+        
         $perak = 0;
+        $perakforced = 0;
+        $peraksexual = 0;
+        $perakchild = 0;
+        
         $perlis = 0;
+        $perlisforced = 0;
+        $perlissexual = 0;
+        $perlischild = 0;
+        
         $penang = 0;
+        $penangforced = 0;
+        $penangsexual = 0;
+        $penangchild = 0;
+        
         $sabah = 0;
+        $sabahforced = 0;
+        $sabahsexual = 0;
+        $sabahchild = 0;
+        
         $sarawak = 0;
+        $sarawakforced = 0;
+        $sarawaksexual = 0;
+        $sarawakchild = 0;
+        
         $selangor = 0;
+        $selangorforced = 0;
+        $selangorsexual = 0;
+        $selangorchild = 0;
+        
         $terengganu = 0;
+        $terengganuforced = 0;
+        $terengganusexual = 0;
+        $terengganuchild = 0;
+        
         foreach($posts as $profilelist)
         {
             switch($profilelist->state)
@@ -74,7 +140,7 @@ class GraphController extends Controller
                 break;
                 case 'Selangor':
                     $selangor++;
-                break;
+                    break;
                 case 'Kuala Lumpur':
                     $kualalumpur++;
                 break;
@@ -119,7 +185,100 @@ class GraphController extends Controller
                 break;
             }
         }
+        //total cases  
+            $johorname = 'Johor';
+            $selangorname = 'Selangor';
+            $labuanname =   'Labuan';
+            $putrajayaname =  'Putrajaya';
+            $kualalumpurname = 'Kuala Lumpur';
+            $perakname = 'Perak';
+            $pahangname = 'Pahang';
+            $perlisname = 'Perlis';
+            $penangname = 'Penang';
+            $sabahname = 'Sabah';
+            $sarawakname = 'Sarawak';
+            $malaccaname = 'Malacca';
+            $kelantanname = 'Kelantan';
+            $kedahname = 'Kedah';
+            $terengganuname = 'Terengganu';
+            $negerisembilanname = 'Negeri Sembilan';
+        // $state = array(
+        //     'Johor' => [
+        //         'name' => $johorname,
+        //     ],
+        //     'Selangor' => [
+        //         'name' => $selangorname,
+        //     ],
+        //     'Labuan' => [
+        //         'name' => $labuanname,
+        //     ],
+        //     'Kuala Lumpur' => [
+        //         'name' => $kualalumpurname,
+        //     ],
+        //     'Putrajaya' => [
+        //         'name' => $putrajayaname,
+        //     ],
+        //     'Perak' => [
+        //         'name' => $perakname,
+        //     ],
+        //     'Pahang' => [
+        //         'name' => $pahangname,
+        //     ],
+        //     'Penang' => [
+        //         'name' => $penangname,
+        //     ],
+        //     'Sabah' => [
+        //         'name' => $sabahname,
+        //     ],
+        //     'Sarawak' => [
+        //         'name' => $sarawakname,
+        //     ],
+        //     'Malacca' => [
+        //         'name' => $malaccaname,
+        //     ],
+        //     'Kelantan' => [
+        //         'name' => $kelantanname,
+        //     ],
 
+        //     'Kedah' => [
+        //         'name' => $kedahname,
+        //     ],
+
+        //     'Terengganu' => [
+        //         'name' => $terengganuname,
+        //     ],
+
+        //     'Negeri Sembilan' => [
+        //         'name' => $negerisembilanname,
+        //     ],
+        //     'Perlis' => [
+        //         'name' => $perlisname,
+        //     ],
+
+
+
+            // 'selangorname' => $selangorname,
+            // 'labuanname' => $labuanname,
+            // 'putrajayaname' => $putrajayaname,
+            // 'kualalumpurname' => $kualalumpurname,
+            // 'perakname' => $perakname,
+            
+            // 'pahangname' => $pahangname,
+            // 'perlisname' => $perlisname,
+            // 'penangname' => $penangname,
+            // 'sabahname' => $sabahname,
+            // 'sarawakname' => $sarawakname,
+
+            // 'malaccaname' => $malaccaname,
+            // 'kelantanname' => $kelantanname,
+            // 'kedahname' => $kedahname,
+            // 'terengganuname' => $terengganuname,
+            // 'negerisembilanname' => $negerisembilanname,
+        
+            
+        // );
+        $zero = 0;
+        $selangorcase = DB::table('victim_profiles')->where('state','Selangor')->get();
         //month 
         $jancase = count(DB::table('victim_profiles')->whereMonth('created_at','01')->get());
         $febcase = count(DB::table('victim_profiles')->whereMonth('created_at','02')->get());
@@ -133,6 +292,10 @@ class GraphController extends Controller
         $octcase = count(DB::table('victim_profiles')->whereMonth('created_at','10')->get());
         $novcase = count(DB::table('victim_profiles')->whereMonth('created_at','11')->get());
         $deccase = count(DB::table('victim_profiles')->whereMonth('created_at','12')->get());
+        $states = MyStates::getStates();
+        $tablesexual = 0;
+        $tablechild = 0;
+        $tableforced = 0;
         $array = [
             'comments' => $comments,
             'posts' => $posts,
@@ -171,9 +334,14 @@ class GraphController extends Controller
             'kedah' => $kedah,
             'terengganu' => $terengganu,
             'negerisembilan' => $negerisembilan,
-            
+            // 'state' => $state,
+            'states' => $states,
+            'tablesexual' => $tablesexual,
+            'tablechild' => $tablechild,
+            'tableforced' => $tableforced,
+            'zero' => $zero,
         ];
-        // dd($array);
+        // dd($states);
         return view('display')->with($array);
     }
 }

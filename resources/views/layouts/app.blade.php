@@ -26,9 +26,11 @@
     <script>
     </script>
     @include('inc.navbar')
-    @yield('display')
+    @yield('displaytop')
+    @yield('displaybottom')
+    @yield('table')
     <div class="container">
-    @include('inc.message')
+        @include('inc.message')
         @yield('maps')
         <div class="col">
             <div class="col-sm-3">
@@ -46,10 +48,11 @@
 
             </div>
             <div class="comment">
-             @yield('comment')
+            @yield('comment')
             </div>
         </div>
     </div>
+        
     
 
     <!-- Scripts -->
