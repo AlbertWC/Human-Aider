@@ -171,64 +171,70 @@
             <th>Child</th>
             <th>Forced</th>
         </tr>
-        <tr>
-            
-        </tr>
+
         @foreach ($states as $statelist)
             <tr>
                 @php
                     $tablesexual=0;
                     $tablechild=0;
                     $tableforced=0;
+                    $sexualchecker = 0;
+                    $childchecker = 0;
+                    $forcedchecker = 0;
                 @endphp
+
                 <td>{{$statelist['name']}}</td>
-                @if (count($posts) > 0)
                 @foreach ($posts as $postslist)
                     @if ($postslist->state == $statelist['name'])
                         @if ($postslist->type == 1)
-                            
-                            
-                                @php
-                                    $tablesexual++;
-                                @endphp
-                                @if ($tablesexual > 0)
-                                <td> {{$tablesexual}} </td> 
-                                @else
-                                <td>{{$zero}}</td>
-                                @endif
-                                
-                        
-                        
+                           @php
+                                $tablesexual++;
+                                $sexualchecker = 1; 
+                            @endphp                          
                         @elseif($postslist->type == 2)
-                            <td>
                                 @php
-                                    $tablechild++
+                                    $tablechild++;
+                                    $childchecker = 1;
                                 @endphp
-                                {{$tablechild}}
-                            </td>
-                        
-                        @elseif($postslist->type == 0)
-                            <td>
+                        @else
                                 @php
-                                    $tableforced++
-                                @endphp
-                                {{$tableforced}}
-                            </td>                      
+                                    $tableforced++;
+                                    $forcedchecker = 1;
+                                @endphp                                
                         @endif
-                        
-                        
-                    @else
-                        
-                    @endif
-                    
-                    
+                    @endif 
                 @endforeach
-                @else
 
+                @if ($sexualchecker == 1)
+                    <td>
+                        {{$tablesexual}}
+                    </td>
+                @else 
+                    <td>{{$zero}}</td>
                 @endif
-                
 
-            </tr>    
+
+                @if($childchecker == 1)
+                    <td>
+                        {{$tablechild}}
+                    </td>
+                @else
+                <td>
+                    {{$zero}}
+                </td>
+                @endif
+
+                @if($forcedchecker == 1)
+                <td>
+                    {{$tableforced}}
+                </td>
+                @else
+                    <td>{{$zero}}</td>
+                @endif
+                    
+                    
+            
+            </tr>  
         @endforeach
     </table>
 </div>

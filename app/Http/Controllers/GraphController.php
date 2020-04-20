@@ -278,6 +278,7 @@ class GraphController extends Controller
             
         // );
         $zero = 0;
+
         $selangorcase = DB::table('victim_profiles')->where('state','Selangor')->get();
         //month 
         $jancase = count(DB::table('victim_profiles')->whereMonth('created_at','01')->get());
