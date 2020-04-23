@@ -6,6 +6,9 @@ use App\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Auth;
+use Illuminate\Http\Request;
 
 class AdminRegisterController extends Controller
 {
@@ -68,10 +71,12 @@ class AdminRegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
     public function showRegistrationForm()
     {
         return view('auth.register-admin');
     }
+
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
@@ -83,4 +88,5 @@ class AdminRegisterController extends Controller
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
     }
+    
 }

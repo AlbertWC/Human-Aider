@@ -40,4 +40,17 @@ class AdminController extends Controller
         $profile->update();
         return back();
     }
+    public function report()
+    {
+        $posts = VictimProfile::get();
+        $data = array(
+            'posts' => $posts
+        );
+        return view('reports.reports')->with($data);
+    }
+    public function reportdetails($id)
+    {
+        $post = VictimProfile::find($id);
+        return view('reports.details')->with('post',$post);
+    }
 }
