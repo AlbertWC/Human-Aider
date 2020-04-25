@@ -2,8 +2,10 @@
 
 @section('content')
     {{Form::open(['action' => 'PostController@search', 'method' => 'get'])}}
-    {{Form::text('search', '', ['class'=>'form-control', 'placeholder' => 'Search'])}}
-    {{Form::submit('Search',['class' => 'btn btn-info'])}}
+    <div class="search" id="search">
+            {{Form::text('search', '', ['class'=>'', 'placeholder' => 'Search'])}}
+            {{Form::submit('Search',['class' => 'btn btn-info'])}}      
+</div>
     {{Form::close()}}
     {{-- @if (count($notsolvedprofile) >0 || count($solvedprofile) > 0) --}}
         <h2 style="text-align:center;" id="maintitle">List of victims</h2>

@@ -18,11 +18,20 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
+            @if (Auth::guard('web')->check())
             <ul class="nav navbar-nav">
                 <li><a href="/posts/create">Create Post</a></li>
                 <li><a href="/sawvictim?page=1">Saw Victim</a></li>
                 <li><a href="/analytics"> Analytics</a></li>
             </ul>
+            @endif
+            @if (Auth::guard('admin')->check())
+            <ul class="nav navbar-nav">
+                <li><a href="/admin/report">View Report</a></li>
+                <li><a href="/posts">View Post</a></li>
+            </ul>
+            @endif
+
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
@@ -38,7 +47,9 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="/home">Home</a>
+                                @if (Auth::guard('web')->check())
+                                    <a href="/home">Home</a>
+                                @endif
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

@@ -132,7 +132,7 @@
             title:
             {
                 display: true,
-                text: 'New cases reported'
+                text: 'New cases reported in month'
             },
             legend:
                     {

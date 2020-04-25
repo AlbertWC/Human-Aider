@@ -125,11 +125,15 @@ li.list-group-item
 #table
 {
     height: 450px;
-    background-color: rgb(166, 209, 238);
+    /* background-color: rgb(166, 209, 238); */
     text-align: center;
     overflow-y: scroll;
 }
 .th,.td
 {
     text-align: center;
+}
+.search
+{
+    margin: 0 auto;
 }
