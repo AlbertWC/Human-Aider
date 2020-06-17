@@ -14,8 +14,11 @@ use DateTime;
 
 class GraphController extends Controller
 {
+    
     public function index()
     {
+        $zero = 0;
+
         $comments = Comment::get();
         $posts = VictimProfile::get();
         $maps = Maps::get();
@@ -130,60 +133,78 @@ class GraphController extends Controller
         $terengganuforced = 0;
         $terengganusexual = 0;
         $terengganuchild = 0;
-        
+        dd($posts);
         foreach($posts as $profilelist)
         {
-            switch($profilelist->state)
+            if($profilelist->state == 'Johor')
             {
-                case 'Johor':
-                    $johor++;
-                break;
-                case 'Selangor':
-                    $selangor++;
-                    break;
-                case 'Kuala Lumpur':
-                    $kualalumpur++;
-                break;
-                case "Labuan":
-                    $labuan++;
-                break;
-                case "Putrajaya":
-                    $putrajaya++;
-                break;
-                case "Kedah":
-                    $kedah++;
-                break;
-                case "Kelantan":
-                    $kelantan++;
-                break;
-                case "Malacca":
-                    $malacca++;
-                break;
-                case "Negeri Sembilan":
-                    $negerisembilan++;
-                break;
-                case "Pahang":
-                    $pahang++;
-                break;
-                case "Perak":
-                    $perak++;
-                break;
-                case "Perlis":
-                    $perlis++;
-                break;
-                case "Penang":
-                    $penang++;
-                break;
-                case "Sabah":
-                    $sabah++;
-                break;
-                case "Sarawak":
-                    $sarawak++;
-                break;
-                case "Terengganu":
-                    $terengganu++;
-                break;
+               $johor++; 
             }
+            elseif($profilelist->state == 'Selangor')
+            {
+                $selangor++;
+            }
+            elseif($profilelist->state == 'Kuala Lumpur')
+            {
+                $kualalumpur++;
+            }
+            elseif($profilelist->state == 'Labuan')
+            {
+                $labuan++;
+            }
+            elseif($profilelist->state == 'Putrajaya')
+            {
+                $putrajaya++;
+            }
+            elseif($profilelist->state == 'Kedah')
+            {
+                $kedah++;
+            }
+            elseif($profilelist->state == 'Kelantan')
+            {
+                $kelantan++;
+            }
+            elseif($profilelist->state == 'Malacca')
+            {
+                $malacca++;
+            }
+            elseif($profilelist->state == 'Negeri Sembilan')
+            {
+                $negerisembilan++;
+            }
+            elseif($profilelist->state == 'Pahang')
+            {
+                $pahang++;
+            }
+            elseif($profilelist->state == 'Perak')
+            {
+                $perak++;
+            }
+            elseif($profilelist->state == 'Perlis')
+            {
+                $perlis++;
+            }
+            elseif($profilelist->state == 'Penang')
+            {
+                $penang++;
+            }
+            elseif($profilelist->state == 'Sabah')
+            {
+                $sabah++;
+            }
+            elseif($profilelist->state == 'Sarawak')
+            {
+                $sarawak++;
+            }
+            elseif($profilelist->satte == 'Terengganu')
+            {
+                $terengganu ++;
+            }
+            else
+            {
+                $zero;
+            }
+            
         }
         //total cases  
             $johorname = 'Johor';
@@ -277,7 +298,6 @@ class GraphController extends Controller
         
             
         // );
-        $zero = 0;
 
         $selangorcase = DB::table('victim_profiles')->where('state','Selangor')->get();
         //month 
