@@ -349,8 +349,8 @@ var commentarray = [];</script>
                 {
                     let sawprofilelat1 = position.coords.latitude;
                     let sawprofilelon1 = position.coords.longitude;
-                    document.getElementById('sawprofilelat').value = position.coords.latitude;
-                    document.getElementById('sawprofilelon').value = position.coords.longitude;
+                    document.getElementById('sawprofilelat').value = sawprofilelat1;
+                    document.getElementById('sawprofilelon').value = sawprofilelon1;
                     console.log(sawprofilelat1);
                   },
                 function()
@@ -423,7 +423,7 @@ var commentarray = [];</script>
                     let commentlat1 = position.coords.latitude;
                     let commentlon1 = position.coords.longitude;
                     document.getElementById('commentlat').value = commentlat1;
-                    document.getElementById('commentlon').value = commentlon.toString();
+                    document.getElementById('commentlon').value = commentlon1;
                     console.log(document.getElementById('commentlat').value);
                 });
             }
