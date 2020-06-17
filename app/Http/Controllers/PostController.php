@@ -50,8 +50,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        
+    { 
         $this->validate($request, [
             'type' => 'required',
             'description' => 'required',
@@ -76,13 +75,9 @@ class PostController extends Controller
         if($request->hasFile('victim_image'))
         {
             $victimImageWithExt  = $request->file('victim_image')->getClientOriginalName();
-
             $victimImage = pathinfo($victimImageWithExt, PATHINFO_FILENAME);
-
             $victimImageExtension = $request->file('victim_image')->getClientOriginalExtension();
-
             $victimImageToStore = $victimImage."_".time().".".$victimImageExtension;
-
             $path = $request->file('victim_image')->storeAs('public/victim_image', $victimImageToStore);
         }
 
@@ -169,7 +164,6 @@ class PostController extends Controller
             'commentcounter' => $commentcounter,
         );
         return view('posts.show')->with($data);
-        //fuck you albert :)
     }
 
     /**

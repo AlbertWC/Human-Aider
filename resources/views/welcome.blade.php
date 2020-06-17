@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Human Aider</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -83,8 +83,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="posts">View Cases</a>
-                    <a href="posts/create"></a>
+                    
                 </div>
                 
             </div>

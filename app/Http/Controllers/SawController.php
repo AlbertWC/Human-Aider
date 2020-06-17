@@ -70,7 +70,6 @@ class SawController extends Controller
             return redirect('/sawvictim?page='.$minprofile)->with('success', "You already saw all victim at the moment");
         }
         else{
-
             return redirect('/sawvictim?page='.$value);
         }
         
