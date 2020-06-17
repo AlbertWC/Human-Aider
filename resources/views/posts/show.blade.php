@@ -334,23 +334,25 @@ var commentarray = [];</script>
           <h5>Contact: {{$profile->ffcontact}}</h5>
           @if ($profile->status == 0)
               {{-- add whatsapp function --}}
-          <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}">Share this</a>
+              
+          <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}"><img src="/storage/whatsapp.png" alt="whatsapp icon">Share this</a>
           {{-- saw this victim  --}}
           <h5>Do saw this person?</h5>
           <br>
           {{Form::open(['action' => ['PostController@update', $profile->id] ,'method' => 'PUT'  ])}}
-          <input type="hidden" name="sawprofilelat" id="commentlat">
-          <input type="hidden" name="sawprofilelon" id="commentlon">
+          <input type="hidden" name="sawprofilelat" id="sawprofilelat">
+          <input type="hidden" name="sawprofilelon" id="sawprofilelon">
           <script>
             if(navigator.geolocation)
             {
                 navigator.geolocation.getCurrentPosition(function(position)
                 {
-                    let sawprofilelat = position.coords.latitude;
-                    let sawprofilelon = position.coords.longitude;
+                    let sawprofilelat1 = position.coords.latitude;
+                    let sawprofilelon1 = position.coords.longitude;
                     document.getElementById('sawprofilelat').value = position.coords.latitude;
                     document.getElementById('sawprofilelon').value = position.coords.longitude;
-                },
+                    console.log(sawprofilelat1);
+                  },
                 function()
                 {
                     alert('Please reactivate your device location at your browser to help the victim');
@@ -418,13 +420,15 @@ var commentarray = [];</script>
             {
                 navigator.geolocation.getCurrentPosition(function(position)
                 {
-                    let commentlat = position.coords.latitude;
-                    let commentlon = position.coords.longitude;
-                    document.getElementById('commentlat').value = position.coords.latitude;
-                    document.getElementById('commentlon').value = position.coords.longitude;
+                    let commentlat1 = position.coords.latitude;
+                    let commentlon1 = position.coords.longitude;
+                    document.getElementById('commentlat').value = commentlat1;
+                    document.getElementById('commentlon').value = commentlon.toString();
+                    console.log(document.getElementById('commentlat').value);
                 });
             }
         </script>
+
 
         {{Form::submit('Comment' ,['class'=> 'btn btn-default'])}}
       {{Form::close()}}

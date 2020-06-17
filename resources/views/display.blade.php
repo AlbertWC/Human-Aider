@@ -166,7 +166,7 @@
             <th colspan="3">Type of case</th>
         </tr>
         <tr>
-            <th rowspan="1">State</th>
+            <th colspan="1">State</th>
             <th>Sexual</td>
             <th>Child</th>
             <th>Forced</th>

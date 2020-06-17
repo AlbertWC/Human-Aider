@@ -14,7 +14,7 @@
                         </div>
                     @endif
                         
-                       <h4>Post you created</h4>
+                       <h4>Active post you created</h4>
                        <table class="table table-striped">
                            <tr>
                                <th>Case</th>

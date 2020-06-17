@@ -240,6 +240,7 @@ class PostController extends Controller
         $maps = new Maps();
         $maps->victim_id = $request->session()->get('victim_id');
         $maps->user_id = auth()->user()->id;
+        // dd($request->input('commentlat'));
         $maps->lat = $request->input('commentlat');
         $maps->lon = $request->input('commentlon');
         $maps->save();
