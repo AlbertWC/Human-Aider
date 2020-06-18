@@ -133,7 +133,7 @@ class GraphController extends Controller
         $terengganuforced = 0;
         $terengganusexual = 0;
         $terengganuchild = 0;
-        dd($posts);
+        // dd($posts);
         foreach($posts as $profilelist)
         {
             if($profilelist->state == 'Johor')
@@ -144,7 +144,7 @@ class GraphController extends Controller
             {
                 $selangor++;
             }
-            elseif($profilelist->state == 'Kuala Lumpur')
+            elseif($profilelist->state == 'Wilayah Persekutuan Kuala Lumpur')
             {
                 $kualalumpur++;
             }
@@ -206,6 +206,7 @@ class GraphController extends Controller
             }
             
         }
+        // dd($johor);
         //total cases  
             $johorname = 'Johor';
             $selangorname = 'Selangor';

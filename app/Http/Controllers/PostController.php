@@ -68,11 +68,11 @@ class PostController extends Controller
         $json_address = json_decode($address);
         $full_address = $json_address->results[0]->formatted_address;
         $statestring = explode(', ', $full_address);
-        dd($statestring);
+        // dd($statestring);
         // dd($statestring[count($statestring)-2]);
         // $state = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-2]->long_name;
         $state = $statestring[count($statestring)-2];
-        dd($state);
+        // dd($state);
         // $country = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-1]->long_name;
         $country = $statestring[count($statestring)-1];
         
