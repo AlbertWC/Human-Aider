@@ -334,8 +334,6 @@ var commentarray = [];</script>
           <h5>Contact: {{$profile->ffcontact}}</h5>
           @if ($profile->status == 0)
               {{-- add whatsapp function --}}
-              
-          <a href="https://wa.me/?text=https://www.a165727.heliohost.org/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}"><img src="/storage/whatsapp.png" alt="whatsapp icon">Share this</a>
           {{-- saw this victim  --}}
           <h5>Do saw this person?</h5>
           <br>
@@ -368,6 +366,9 @@ var commentarray = [];</script>
           <button type="submit" class="btn btn-primary" name="btnyes" id="btnyes" value="yes">Yes</button>
           <button type="submit" class="btn btn-danger" name="btnno" id="btnno" value="no">No</button>
             {{Form::close()}}
+            <h5>Share to:</h5>
+          <a href="https://wa.me/?text=https://humanaider.site/posts/{{$profile->id}}, There is a person missing who {{$profile->description}}"><img src="/storage/whatsapp.png" alt="whatsapp icon"></a>
+          
           @endif
           
         </div>

@@ -202,7 +202,9 @@
                                     $forcedchecker = 1;
                                 @endphp                                
                         @endif
-                    @endif 
+                        
+                    @endif
+                    
                 @endforeach
 
                 @if ($sexualchecker == 1)

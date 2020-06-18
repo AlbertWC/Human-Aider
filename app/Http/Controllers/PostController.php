@@ -72,6 +72,10 @@ class PostController extends Controller
         // dd($statestring[count($statestring)-2]);
         // $state = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-2]->long_name;
         $state = $statestring[count($statestring)-2];
+        if($state == 'Wilayah Persekutuan Kuala Lumpur')
+        {
+            $state = 'Kuala Lumpur';
+        }
         // dd($state);
         // $country = $json_address->results[0]->address_components[count($json_address->results[0]->address_components)-1]->long_name;
         $country = $statestring[count($statestring)-1];
