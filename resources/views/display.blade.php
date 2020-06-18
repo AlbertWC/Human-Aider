@@ -162,14 +162,13 @@
 <div class="col-sm-4 col-md-4 col-lg-4" id="table">
     <table class="table table-striped table-bordered table-responsive" id="table">
         <tr>
-            <th></th>
-            <th colspan="3">Type of case</th>
+            <td colspan="4">Type of case</td>
         </tr>
         <tr>
-            <th colspan="1">State</th>
-            <th>Sexual</td>
-            <th>Child</th>
-            <th>Forced</th>
+            <td colspan="1">State</td>
+            <td>Sexual</td>
+            <td>Child</td>
+            <td>Forced</td>
         </tr>
 
         @foreach ($states as $statelist)
